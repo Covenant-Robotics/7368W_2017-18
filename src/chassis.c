@@ -16,15 +16,15 @@ void chassisInit() {
   blrsMotorInit(MOTOR_LEFT_BACK, false, DRIVE_SLEW, trueSpeed);
   blrsMotorInit(MOTOR_RIGHT_FRONT, true, DRIVE_SLEW, trueSpeed);
   blrsMotorInit(MOTOR_RIGHT_BACK, true, DRIVE_SLEW, trueSpeed);
-  
+
 
 }
 
 int chassisGetPos(){
-  int leftPos, rightPos;
-  leftPos = encoderGet(leftEncoder);
+  int leftPosition, rightPos;
+  leftPosition = encoderGet(leftEncoder);
   rightPos = encoderGet(rightEncoder);
-  return ((leftPos + rightPos) / 2);
+  return ((leftPosition + rightPos) / 2);
 }
 
 int trueSpeed (int in) {
