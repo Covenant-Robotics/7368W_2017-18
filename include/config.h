@@ -13,6 +13,8 @@
 #define ENCODER_RIGHT_TOP 3
 #define ENCODER_RIGHT_BOTTOM 4
 
-#define DRIVE_SLEW 0.5f 
+#define DRIVE_SLEW 0.5f
+
+#define DRIVE_PID 1
 
 #endif
