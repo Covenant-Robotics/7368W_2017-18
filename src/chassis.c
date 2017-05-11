@@ -21,10 +21,10 @@ void chassisInit() {
 }
 
 int chassisGetPos(){
-  int leftPosition, rightPos;
-  leftPosition = encoderGet(leftEncoder);
+  int leftPos, rightPos;
+  leftPos = encoderGet(leftEncoder);
   rightPos = encoderGet(rightEncoder);
-  return ((leftPosition + rightPos) / 2);
+  return ((leftPos + rightPos) / 2);
 }
 
 int trueSpeed (int in) {
