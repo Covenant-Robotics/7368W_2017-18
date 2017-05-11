@@ -16,6 +16,6 @@ void operatorControl() {
         delay(20);
 if (buttonIsNewPress(JOY1_8U)) {
   autonomous();
-}
+} 
     }
 }

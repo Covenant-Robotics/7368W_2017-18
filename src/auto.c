@@ -27,10 +27,21 @@
  * so, the robot will await a switch to another mode or disable/enable cycle.
  */
 void autonomous() {
-  while (chassisGetPos() < 1000) {
+  chassisPIDSet(3000);
+  while (!fbcIsConfident(chassisGetPID())){
+    fbcRunContinuous(chassisGetPID());
+    delay (20);
+//    printf("here");
+  }
+
+
+
+
+
+/*  while (chassisGetPos() < 1000) {
     chassisSet(127, 127);
     printf("distance %d\n",chassisGetPos());
     delay(20);
   }
-  chassisSet(0, 0);
+  chassisSet(0, 0); */
 }

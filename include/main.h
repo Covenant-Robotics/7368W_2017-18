@@ -30,6 +30,8 @@
 #include "config.h"
 #include "buttons.h"
 #include "mtrmgr.h"
+#include "fbc.h"
+#include "fbc_pid.h"
 
 // Allow usage of this file in C++ programs
 #ifdef __cplusplus

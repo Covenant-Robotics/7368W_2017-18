@@ -15,6 +15,17 @@
 
 #define DRIVE_SLEW 0.5f
 
+
+//PID constants
 #define DRIVE_PID 1
+#define DRIVE_PID_DEADBAND 20
+#define DRIVE_PID_TOLERANCE 30
+#define DRIVE_PID_CONFIDENCE 5
+#define DRIVE_KI 0.0F
+#define DRIVE_KP 0.162F
+#define DRIVE_KD 0.0015F
+#define DRIVE_INTEGRAL_CAP 500
+
+
 
 #endif
