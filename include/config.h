@@ -3,10 +3,10 @@
 
 #include "main.h"
 
-#define MOTOR_RIGHT_FRONT 2
-#define MOTOR_RIGHT_BACK 3
-#define MOTOR_LEFT_FRONT 4
-#define MOTOR_LEFT_BACK 5
+#define MOTOR_RIGHT_FRONT 4
+#define MOTOR_RIGHT_BACK 5
+#define MOTOR_LEFT_FRONT 2
+#define MOTOR_LEFT_BACK 3
 #define ARM_LEFT_TOP 6
 #define ARM_LEFT_BOTTOM 7
 
