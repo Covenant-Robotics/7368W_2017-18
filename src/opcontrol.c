@@ -11,16 +11,16 @@ void operatorControl() {
           autonomous();
         }
         if (buttonGetState(JOY1_6U) == 1) {
-          motorSet(ARM_LEFT_BOTTOM, 127);
-          motorSet(ARM_LEFT_TOP, 127);
+            blrsMotorSet(ARM_LEFT, 127, true);
+            blrsMotorSet(ARM_RIGHT, 127, true);
         }
         else if(buttonGetState(JOY1_6D) == 1) {
-          motorSet(ARM_LEFT_BOTTOM, -127);
-          motorSet(ARM_LEFT_TOP, -127);
+          blrsMotorSet(ARM_LEFT, -127, true);
+          blrsMotorSet(ARM_RIGHT, -127, true);
         }
         else
-        motorSet(ARM_LEFT_BOTTOM, 0);
-        motorSet(ARM_LEFT_TOP, 0);
+        blrsMotorSet(ARM_LEFT, 0, true);
+        blrsMotorSet(ARM_RIGHT, 0, true);
 
     }
 }

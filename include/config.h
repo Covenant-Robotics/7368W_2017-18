@@ -7,8 +7,8 @@
 #define MOTOR_RIGHT_BACK 5
 #define MOTOR_LEFT_FRONT 2
 #define MOTOR_LEFT_BACK 3
-#define ARM_LEFT_TOP 6
-#define ARM_LEFT_BOTTOM 7
+#define ARM_LEFT 6
+#define ARM_RIGHT 7
 
 #define ENCODER_LEFT_TOP 1
 #define ENCODER_LEFT_BOTTOM 2
