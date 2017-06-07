@@ -13,13 +13,13 @@ void operatorControl() {
         if (buttonIsNewPress(JOY1_8U)) {
           autonomous();
         }
-        if (buttonGetState(JOY1_6U)) {
-            blrsMotorSet(ARM_LEFT, 60, true);
-            blrsMotorSet(ARM_RIGHT, 60, true);
+        if (buttonGetState(JOY1_6D)) {
+            blrsMotorSet(ARM_LEFT, 127, true);
+            blrsMotorSet(ARM_RIGHT, 127, true);
         }
-        else if(buttonGetState(JOY1_6D)) {
-          blrsMotorSet(ARM_LEFT, -40, true);
-          blrsMotorSet(ARM_RIGHT, -40, true);
+        else if(buttonGetState(JOY1_6U)) {
+          blrsMotorSet(ARM_LEFT, -25, true);
+          blrsMotorSet(ARM_RIGHT, -25, true);
         }
         else {
           blrsMotorSet(ARM_LEFT, 0, true);
