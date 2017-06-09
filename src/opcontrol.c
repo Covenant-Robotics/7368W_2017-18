@@ -14,12 +14,16 @@ void operatorControl() {
           autonomous();
         }
         if (buttonGetState(JOY1_6D)) {
-            blrsMotorSet(ARM_LEFT, 127, true);
-            blrsMotorSet(ARM_RIGHT, 127, true);
+          blrsMotorSet(ARM_LEFT, 127, true);
+          blrsMotorSet(ARM_RIGHT, 127, true);
         }
-        else if(buttonGetState(JOY1_6U)) {
+        else if(buttonGetState(JOY1_5U)) {
           blrsMotorSet(ARM_LEFT, -25, true);
           blrsMotorSet(ARM_RIGHT, -25, true);
+        }
+        else if(buttonGetState(JOY1_6U)) {
+          blrsMotorSet(ARM_LEFT, 80, true);
+          blrsMotorSet(ARM_RIGHT, 80, true);
         }
         else {
           blrsMotorSet(ARM_LEFT, 0, true);
