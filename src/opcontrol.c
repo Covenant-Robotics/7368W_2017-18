@@ -3,33 +3,42 @@
 static int clamp(int in) { return (abs(in) > 15) ? in : 0; }
 
 void operatorControl() {
-  int power;
-  int turn;
-    while (1) {
-        power = clamp(joystickGetAnalog(1, 3)); // vertical axis on left joystick
-        turn  = clamp(joystickGetAnalog(1, 1)); // horizontal axis on left joystick
-        chassisSet(power + turn, power - turn);
+  bool track_lift = true;
+  while (1) {
+    int power = clamp(joystickGetAnalog(1, 3));
+    int turn = clamp(joystickGetAnalog(1, 1));
 
-        if (buttonIsNewPress(JOY1_8U)) {
-          autonomous();
-        }
-        if (buttonGetState(JOY1_6D)) {
-          blrsMotorSet(ARM_LEFT, 127, true);
-          blrsMotorSet(ARM_RIGHT, 127, true);
-        }
-        else if(buttonGetState(JOY1_5U)) {
-          blrsMotorSet(ARM_LEFT, -25, true);
-          blrsMotorSet(ARM_RIGHT, -25, true);
-        }
-        else if(buttonGetState(JOY1_6U)) {
-          blrsMotorSet(ARM_LEFT, 80, true);
-          blrsMotorSet(ARM_RIGHT, 80, true);
-        }
-        else {
-          blrsMotorSet(ARM_LEFT, 0, true);
-          blrsMotorSet(ARM_RIGHT, 0, true);
-        }
+    chassisSet(power + turn, power - turn);
 
-        delay(20);
-    }
+    // if (buttonGetState(JOY1_6U)) {
+    //   liftOpSet(127);
+    //   track_lift = true;
+    // }
+    // else if (buttonGetState(JOY1_6D)) {
+    //   liftOpSet(-127);
+    //   track_lift = true;
+    // }
+    // else if (liftGetSpeed() != 0 && track_lift) {
+    //   liftOpSet(0);
+    //   track_lift = true;
+    // }
+    // else if (liftGetSpeed() == 0 && track_lift) { //just started pid
+    //   track_lift = false;
+    //   liftSetPos(liftGetPos());
+    //   liftPID();
+    // }
+    // else {
+    //   track_lift = false;
+    //   liftPID();
+    // }
+
+    if (buttonGetState(JOY1_6U))
+      liftOpSet(127);
+    else if (buttonGetState(JOY1_6D))
+      liftOpSet(-127);
+    else
+      liftOpSet(0);
+
+    delay(20);
+  }
 }
