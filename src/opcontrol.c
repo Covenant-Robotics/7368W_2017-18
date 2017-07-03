@@ -3,21 +3,27 @@
 static int clamp(int in) { return (abs(in) > 15) ? in : 0; }
 
 void operatorControl() {
-  int power;
-  int turn;
+    bool tank = false;
     while (1) {
-        power = clamp(joystickGetAnalog(1, 3)); // vertical axis on left joystick
-        turn  = clamp(joystickGetAnalog(1, 1)); // horizontal axis on left joystick
-        chassisSet(power + turn, power - turn);
+      if (buttonIsNewPress(JOY1_7D))
+        tank = !tank;
 
-        if (buttonIsNewPress(JOY1_8U)) {
-          autonomous();
-        }
-        if (buttonGetState(JOY1_6D)) {
-          blrsMotorSet(ARM_LEFT, 127, true);
-          blrsMotorSet(ARM_RIGHT, 127, true);
-        }
-        else if(buttonGetState(JOY1_5U)) {
+      if (tank) {
+        int left = clamp(joystickGetAnalog(1, 3));
+        int right = clamp(joystickGetAnalog(1, 2));
+        chassisSet(left,right);
+      }
+      else {
+        int power = clamp(joystickGetAnalog(1, 3)); // vertical axis on left joystick
+        int turn  = clamp(joystickGetAnalog(1, 1)); // horizontal axis on left joystick
+        chassisSet(power + turn, power - turn);
+      }
+
+//        if (buttonIsNewPress(JOY1_8U)) {
+  //        autonomous();
+//        }
+
+        if(buttonGetState(JOY1_5U)) {
           blrsMotorSet(ARM_LEFT, -25, true);
           blrsMotorSet(ARM_RIGHT, -25, true);
         }
@@ -29,7 +35,15 @@ void operatorControl() {
           blrsMotorSet(ARM_LEFT, 0, true);
           blrsMotorSet(ARM_RIGHT, 0, true);
         }
-
+        if (buttonGetState(JOY1_6D)) {
+          blrsMotorSet(INTAKE, 80, true);
+        }
+        else if(buttonGetState(JOY1_5D)) {
+          blrsMotorSet(INTAKE, -80, true);
+        }
+        else {
+          blrsMotorSet(INTAKE, 0, true);
+        }
         delay(20);
     }
 }

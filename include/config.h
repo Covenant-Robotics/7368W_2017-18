@@ -3,12 +3,14 @@
 
 #include "main.h"
 
-#define MOTOR_RIGHT_FRONT 4
-#define MOTOR_RIGHT_BACK 5
+#define MOTOR_RIGHT_FRONT 8
+#define MOTOR_RIGHT_BACK 9
 #define MOTOR_LEFT_FRONT 2
 #define MOTOR_LEFT_BACK 3
-#define ARM_LEFT 6
-#define ARM_RIGHT 7
+#define ARM_LEFT 5
+#define ARM_RIGHT 6
+#define CLAW 7
+#define INTAKE 4
 
 #define ENCODER_LEFT_TOP 1
 #define ENCODER_LEFT_BOTTOM 2

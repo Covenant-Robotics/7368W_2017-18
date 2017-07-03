@@ -36,6 +36,7 @@ void chassisInit() {
   blrsMotorInit(MOTOR_RIGHT_BACK, true, DRIVE_SLEW, NULL);
   blrsMotorInit(ARM_LEFT, false, NULL, NULL);
   blrsMotorInit(ARM_RIGHT, true, NULL, NULL);
+  blrsMotorInit(INTAKE, true, NULL, NULL);
   fbcInit(&distanceController, _chassisPIDMove, chassisGetPos, _chassisPIDReset, -DRIVE_PID_DEADBAND, DRIVE_PID_DEADBAND, DRIVE_PID_TOLERANCE, DRIVE_PID_CONFIDENCE);
   fbcPIDInitializeData(&distancePID, DRIVE_KP, DRIVE_KI, DRIVE_KD, -DRIVE_INTEGRAL_CAP, DRIVE_INTEGRAL_CAP);
   fbcPIDInit(&distanceController, &distancePID);

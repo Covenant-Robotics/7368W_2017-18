@@ -32,6 +32,7 @@
 #include "mtrmgr.h"
 #include "fbc.h"
 #include "fbc_pid.h"
+#include "lift.h"
 
 // Allow usage of this file in C++ programs
 #ifdef __cplusplus
