@@ -10,7 +10,8 @@
 #define ARM_LEFT 5
 #define ARM_RIGHT 6
 #define CLAW 7
-#define INTAKE 4
+#define INTAKE 1
+#define CHAIN 4
 
 #define ENCODER_LEFT_TOP 1
 #define ENCODER_LEFT_BOTTOM 2

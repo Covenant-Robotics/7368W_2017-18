@@ -41,5 +41,5 @@ void initialize() {
   buttonInit();
   motorManagerInit();
   chassisInit();
-  liftInit();
+  //liftInit();
 }

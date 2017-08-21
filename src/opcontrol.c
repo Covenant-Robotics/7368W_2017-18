@@ -5,7 +5,7 @@ static int clamp(int in) { return (abs(in) > 15) ? in : 0; }
 void operatorControl() {
     bool tank = false;
     while (1) {
-      if (buttonIsNewPress(JOY1_7D))
+      if (buttonIsNewPress(JOY1_7L))
         tank = !tank;
 
       if (tank) {
@@ -43,6 +43,31 @@ void operatorControl() {
         }
         else {
           blrsMotorSet(INTAKE, 0, true);
+        }
+
+        if(buttonGetState(JOY1_7U)) {
+          blrsMotorSet(CHAIN, 50, true);
+          blrsMotorSet(CHAIN, 50, true);
+        }
+        else if(buttonGetState(JOY1_7D)){
+          blrsMotorSet(CHAIN, -40, true);
+          blrsMotorSet(CHAIN, -40, true);
+        }
+        else{
+          blrsMotorSet(CHAIN, 0, true);
+          blrsMotorSet(CHAIN, 0, true);
+        }
+        if(buttonGetState(JOY1_8U)){
+          blrsMotorSet(CLAW, 60, true);
+          blrsMotorSet(CLAW, 60, true);
+        }
+        else if(buttonGetState(JOY1_8D)){
+          blrsMotorSet(CLAW, -60, true);
+          blrsMotorSet(CLAW, -60, true);
+        }
+        else{
+          blrsMotorSet(CLAW, 0, true);
+          blrsMotorSet(CLAW, 0, true);
         }
         delay(20);
     }
