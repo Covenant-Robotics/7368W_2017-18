@@ -58,11 +58,11 @@ void operatorControl() {
   //        blrsMotorSet(CHAIN, 0, true);
         }
         if(buttonGetState(JOY1_8U)){  //Open Claw
-          blrsMotorSet(CLAW, 80, true);
+          blrsMotorSet(CLAW, 127, true);
   //        blrsMotorSet(CLAW, 80, true);
         }
         else if(buttonGetState(JOY1_8D)){ //Close claw
-          blrsMotorSet(CLAW, -60, true);
+          blrsMotorSet(CLAW, -100, true);
   //        blrsMotorSet(CLAW, -60, true);
         }
         else{
