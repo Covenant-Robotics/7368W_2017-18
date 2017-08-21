@@ -40,10 +40,10 @@ void initializeIO() {
 void initialize() {
   buttonInit();
   motorManagerInit();
-  chassisInit();
-<<<<<<< HEAD
-  //liftInit();
-=======
-  liftInit();
->>>>>>> master
-}
+  chassisInit();}
+// <<<<<<< HEAD
+//   //liftInit();
+// =======
+//   liftInit();
+// >>>>>>> master
+// }

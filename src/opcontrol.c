@@ -24,8 +24,8 @@ void operatorControl() {
 //        }
 
         if(buttonGetState(JOY1_5U)) {
-          blrsMotorSet(ARM_LEFT, -25, true);  //Lower Arm
-          blrsMotorSet(ARM_RIGHT, -25, true);
+          blrsMotorSet(ARM_LEFT, -40, true);  //Lower Arm
+          blrsMotorSet(ARM_RIGHT, -40, true);
         }
         else if(buttonGetState(JOY1_6U)) {  //Raise Arm
           blrsMotorSet(ARM_LEFT, 80, true);
