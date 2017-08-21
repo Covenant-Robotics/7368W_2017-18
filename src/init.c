@@ -41,5 +41,9 @@ void initialize() {
   buttonInit();
   motorManagerInit();
   chassisInit();
+<<<<<<< HEAD
   //liftInit();
+=======
+  liftInit();
+>>>>>>> master
 }

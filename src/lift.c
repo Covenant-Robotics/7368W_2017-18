@@ -2,7 +2,11 @@
  * @file Lift Module
  */
 #include "lift.h"
+<<<<<<< HEAD
 /*
+=======
+
+>>>>>>> master
 static fbc_t liftController;
 static fbc_pid_t lift_pid;
 static TaskHandle liftTask;
@@ -94,4 +98,8 @@ void liftPID() {
 
 void liftSetPos(int pos) {
   fbcSetGoal(&liftController, pos);
+<<<<<<< HEAD
 } */
+=======
+}
+>>>>>>> master
