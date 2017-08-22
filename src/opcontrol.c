@@ -23,11 +23,11 @@ void operatorControl() {
   //        autonomous();
 //        }
 
-        if(buttonGetState(JOY1_5U)) {
+        if(buttonGetState(JOY1_5D)) {
           blrsMotorSet(ARM_LEFT, -45, true);  //Lower Arm
           blrsMotorSet(ARM_RIGHT, -45, true);
         }
-        else if(buttonGetState(JOY1_5D)) {  //Raise Arm
+        else if(buttonGetState(JOY1_5U)) {  //Raise Arm
           blrsMotorSet(ARM_LEFT, 80, true);
           blrsMotorSet(ARM_RIGHT, 80, true);
         }
