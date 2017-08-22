@@ -27,7 +27,7 @@ void operatorControl() {
           blrsMotorSet(ARM_LEFT, -45, true);  //Lower Arm
           blrsMotorSet(ARM_RIGHT, -45, true);
         }
-        else if(buttonGetState(JOY1_6U)) {  //Raise Arm
+        else if(buttonGetState(JOY1_5D)) {  //Raise Arm
           blrsMotorSet(ARM_LEFT, 80, true);
           blrsMotorSet(ARM_RIGHT, 80, true);
         }
@@ -35,21 +35,21 @@ void operatorControl() {
           blrsMotorSet(ARM_LEFT, 0, true);  //Arm =0
           blrsMotorSet(ARM_RIGHT, 0, true);
         }
-        if (buttonGetState(JOY1_6D)) {  //Going out Intake
+        if (buttonGetState(JOY1_7U)) {  //Going out Intake
           blrsMotorSet(INTAKE, 80, true);
         }
-        else if(buttonGetState(JOY1_5D)) {  //Bringing In Intake
+        else if(buttonGetState(JOY1_7D)) {  //Bringing In Intake
           blrsMotorSet(INTAKE, -80, true);
         }
         else {
           blrsMotorSet(INTAKE, 0, true);  //Intake =0
         }
 
-        if(buttonGetState(JOY1_7U)) {   //Raise chain
+        if(buttonGetState(JOY1_6U)) {   //Raise chain
           blrsMotorSet(CHAIN, 60, true);
     //      blrsMotorSet(CHAIN, 60, true);
         }
-        else if(buttonGetState(JOY1_7D)){ //Lower chain
+        else if(buttonGetState(JOY1_6D)){ //Lower chain
           blrsMotorSet(CHAIN, -35, true);
   //        blrsMotorSet(CHAIN, -35, true);
         }
