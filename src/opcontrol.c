@@ -47,28 +47,23 @@ void operatorControl() {
 
         if(buttonGetState(JOY1_6U)) {   //Raise chain
           blrsMotorSet(CHAIN, 60, true);
-    //      blrsMotorSet(CHAIN, 60, true);
         }
         else if(buttonGetState(JOY1_6D)){ //Lower chain
-          blrsMotorSet(CHAIN, -35, true);
-  //        blrsMotorSet(CHAIN, -35, true);
+          blrsMotorSet(CHAIN, -45, true);
         }
         else{
           blrsMotorSet(CHAIN, 0, true); //chain =0
-  //        blrsMotorSet(CHAIN, 0, true);
         }
         if(buttonGetState(JOY1_8U)){  //Open Claw
           blrsMotorSet(CLAW, 127, true);
-  //        blrsMotorSet(CLAW, 80, true);
         }
         else if(buttonGetState(JOY1_8D)){ //Close claw
           blrsMotorSet(CLAW, -100, true);
-  //        blrsMotorSet(CLAW, -60, true);
         }
         else{
           blrsMotorSet(CLAW, 0, true);  //Claw =0
-  //        blrsMotorSet(CLAW, 0, true);
         }
+       printf("Chain Pot %d\n", analogRead(CHAIN_POT_RIGHT));
         delay(20);
     }
 }
