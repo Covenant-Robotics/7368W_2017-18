@@ -1,14 +1,15 @@
-// /**
-//  * @file Lift Module
-//  */
-// #include "lift.h"
+ /**
+  * @file Lift Module
+  */
+ #include "lift.h"
+ #include "main.h"
 // <<<<<<< HEAD
 // /*
 // =======
 //
 // >>>>>>> master
-// static fbc_t liftController;
-// static fbc_pid_t lift_pid;
+ static fbc_t liftController;
+ static fbc_pid_t lift_pid;
 // static TaskHandle liftTask;
 //
 // int lift_positions[3] = {
@@ -17,19 +18,49 @@
 //   LIFT_TOP
 // };
 //
-// static void _liftSet(int power) {
-//   blrsMotorSet(ARM_LEFT, power, false);
-//   blrsMotorSet(ARM_RIGHT, power, false);
-// }
-//
-// void liftInit() {
+ static void _liftSet(int power) {
+   blrsMotorSet(ARM_LEFT, power, false);
+   blrsMotorSet(ARM_RIGHT, power, false);
+ }
+
+void liftInit() {
 //   blrsMotorInit(ARM_LEFT, false, LIFT_SLEW, NULL);
 //   blrsMotorInit(ARM_RIGHT, true, LIFT_SLEW, NULL);
-//
-//   fbcInit(&liftController, _liftSet, liftGetPos, NULL, LIFT_NEG_DEADBAND, LIFT_POS_DEADBAND, LIFT_PID_TOL, LIFT_PID_CONF);
-//   fbcPIDInitializeData(&lift_pid, LIFT_KP, 0, LIFT_KD, 0, 0);
-//   fbcPIDInit(&liftController, &lift_pid);
-// }
+   blrsMotorInit(ARM_LEFT, false, NULL, NULL);
+   blrsMotorInit(ARM_RIGHT, true, NULL, NULL);
+   blrsMotorInit(INTAKE, true, NULL, NULL);
+   blrsMotorInit(CHAIN, false, NULL, NULL);
+   blrsMotorInit(CLAW, false, NULL, NULL);
+
+  // fbcInit(&liftController, _liftSet, liftGetPos, NULL, LIFT_NEG_DEADBAND, LIFT_POS_DEADBAND, LIFT_PID_TOL, LIFT_PID_CONF);
+  // fbcPIDInitializeData(&lift_pid, LIFT_KP, 0, LIFT_KD, 0, 0);
+  // fbcPIDInit(&liftController, &lift_pid);
+ }
+
+ void chainSetPos(int goal){
+   if(analogRead(CHAIN_POT) < goal){
+     blrsMotorSet(CHAIN, 80, true);
+   }
+   else if(analogRead(CHAIN_POT) > goal){
+     blrsMotorSet(CHAIN, -60, true);
+   }
+   else {
+     blrsMotorSet(CHAIN, 0, true);
+   }
+ }
+void ChainRun(){
+     if(buttonGetState(JOY1_8R)){
+       chainSetPos(3000);             //tune this value for chain distance outside stack
+   }
+      if(buttonGetState(JOY1_8L)){
+        chainSetPos(200);            //tune this value for chain distance while stacking
+      }
+}
+
+
+
+
+
 //
 // void liftStartTask() {
 //   liftTask = fbcRunParallel(&liftController);

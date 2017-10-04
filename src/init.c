@@ -40,7 +40,9 @@ void initializeIO() {
 void initialize() {
   buttonInit();
   motorManagerInit();
-  chassisInit();}
+  chassisInit();
+  liftInit();
+}
 // <<<<<<< HEAD
 //   //liftInit();
 // =======

@@ -20,6 +20,7 @@ void liftDecrementPos();
 void liftSnapToPos();
 void liftPID();
 void liftSetPos(int pos);
+void chainRun();
 
 int liftGetPos();
 int liftGetSpeed();
