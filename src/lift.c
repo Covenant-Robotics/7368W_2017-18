@@ -36,40 +36,58 @@ void liftInit() {
   // fbcPIDInitializeData(&lift_pid, LIFT_KP, 0, LIFT_KD, 0, 0);
   // fbcPIDInit(&liftController, &lift_pid);
  }
-
-//TaskHandle chainTaskHandle = taskCreate(chainSetPos, TASK_DEFAULT_STACK_SIZE,NULL, TASK_PRIORITY_DEFAULT);
-void chainTaskSet(void * parameter){
-  while(1){
-    
+ void chainSetPos(int goal){
+    while(analogRead(CHAIN_POT) < goal){
+      if(analogRead(CHAIN_POT) < (goal - 500)){
+      blrsMotorSet(CHAIN, -80, true);
+     }
+     else {
+     blrsMotorSet(CHAIN, -40, true);
+     }
+     delay(20);
+    }
+    while(analogRead(CHAIN_POT) > goal){
+      if(analogRead(CHAIN_POT) > (goal+500)){
+      blrsMotorSet(CHAIN, 60, true);
+    }
+     else {
+       blrsMotorSet(CHAIN, 20, true);
+     }
+      delay(20);
+    }
+      blrsMotorSet(CHAIN, 0, true);
+  }
+void chainTaskInitialize(){
+  TaskHandle chainTaskHandle = taskRunLoop(chainTaskSet, 20);
+}
+void chainTaskSet(){
+  if(buttonGetState(JOY1_6U)) {   //Raise chain Pot value of 1300 is all the way up
+    blrsMotorSet(CHAIN, 80, true);
+  }
+  else if(buttonGetState(JOY1_6D)){ //Lower chain Pot value of 7 is all the way down...broekn Pots??
+    blrsMotorSet(CHAIN, -60, true);
+  }
+  else{
+    blrsMotorSet(CHAIN, 0, true); //chain
+  }
+  while(JOY1_6U == 0 && JOY1_6D == 0){
+    if(buttonGetState(JOY1_8R)){
+       chainSetPos(3000);             //tune this value for chain distance outside stack
+       blrsMotorSet(CHAIN, 0, true); //chain
+   }
+      if(buttonGetState(JOY1_8L)){
+        chainSetPos(200);            //tune this value for chain distance while stacking
+        blrsMotorSet(CHAIN, 0, true); //chain
+      }
     delay(20);
   }
 }
+//TaskHandle chainTaskHandle = taskCreate(chainTaskSet, TASK_DEFAULT_STACK_SIZE,NULL, TASK_PRIORITY_DEFAULT);
 
 
 
 
 
-void chainSetPos(int goal){
-   while(analogRead(CHAIN_POT) < goal){
-     if(analogRead(CHAIN_POT) < (goal - 500)){
-     blrsMotorSet(CHAIN, -80, true);
-    }
-    else {
-    blrsMotorSet(CHAIN, -40, true);
-    }
-    delay(20);
-   }
-   while(analogRead(CHAIN_POT) > goal){
-     if(analogRead(CHAIN_POT) > (goal+500)){
-     blrsMotorSet(CHAIN, 60, true);
-   }
-    else {
-      blrsMotorSet(CHAIN, 20, true);
-    }
-     delay(20);
-   }
-     blrsMotorSet(CHAIN, 0, true);
- }
 
 //void ChainRun(){
 //     if(buttonGetState(JOY1_8R)){
