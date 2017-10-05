@@ -49,10 +49,10 @@ void operatorControl() {
 
 
         if(buttonGetState(JOY1_6U)) {   //Raise chain Pot value of 1300 is all the way up
-          blrsMotorSet(CHAIN, 60, true);
+          blrsMotorSet(CHAIN, 80, true);
         }
         else if(buttonGetState(JOY1_6D)){ //Lower chain Pot value of 7 is all the way down...broekn Pots??
-          blrsMotorSet(CHAIN, -45, true);
+          blrsMotorSet(CHAIN, -60, true);
         }
         else{
           blrsMotorSet(CHAIN, 0, true); //chain
@@ -68,6 +68,14 @@ void operatorControl() {
         else{
           blrsMotorSet(CLAW, 0, true);  //Claw =0
         }
+        if(buttonGetState(JOY1_8R)){
+           chainSetPos(3000);             //tune this value for chain distance outside stack
+           blrsMotorSet(CHAIN, 0, true); //chain
+       }
+          if(buttonGetState(JOY1_8L)){
+            chainSetPos(200);            //tune this value for chain distance while stacking
+            blrsMotorSet(CHAIN, 0, true); //chain
+          }
 
 
        printf("Chain Pot %d\n", analogRead(CHAIN_POT));

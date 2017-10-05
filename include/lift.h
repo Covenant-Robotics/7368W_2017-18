@@ -21,6 +21,7 @@ void liftSnapToPos();
 void liftPID();
 void liftSetPos(int pos);
 void chainRun();
+void chainSetPos(int goal);
 
 int liftGetPos();
 int liftGetSpeed();
