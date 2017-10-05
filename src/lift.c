@@ -67,9 +67,6 @@ void chainTaskSet(){
   else if(buttonGetState(JOY1_6D)){ //Lower chain Pot value of 7 is all the way down...broekn Pots??
     blrsMotorSet(CHAIN, -60, true);
   }
-  else{
-    blrsMotorSet(CHAIN, 0, true); //chain
-  }
   while(JOY1_6U == 0 && JOY1_6D == 0){
     if(buttonGetState(JOY1_8R)){
        chainSetPos(3000);             //tune this value for chain distance outside stack

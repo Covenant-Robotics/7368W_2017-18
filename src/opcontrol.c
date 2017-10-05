@@ -20,6 +20,7 @@ void operatorControl() {
       }
 
       chainTaskInitialize();
+      TaskHandle chainTaskHandle= taskRunLoop(chainTaskSet, 20);
 //       if (buttonIsNewPress(JOY1_8U)) {
   //        autonomous();
 //        }
