@@ -79,6 +79,9 @@ void chainTaskSet(){
         chainSetPos(200);            //tune this value for chain distance while stacking
         blrsMotorSet(CHAIN, 0, true); //chain
       }
+      else{
+        blrsMotorSet(CHAIN, 0, true); //chain
+      }
     delay(20);
   }
 }
