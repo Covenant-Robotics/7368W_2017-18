@@ -4,6 +4,7 @@ static int clamp(int in) { return (abs(in) > 15) ? in : 0; }
 
 void operatorControl() {
     bool tank = false;
+    bool manual = true;
     while (1) {
       if (buttonIsNewPress(JOY1_7L))
         tank = !tank;
@@ -19,11 +20,33 @@ void operatorControl() {
         chassisSet(power + turn, power - turn);
       }
 
-      chainTaskInitialize();
-      TaskHandle chainTaskHandle= taskRunLoop(chainTaskSet, 20);
+  //    chainTaskInitialize();
+//      TaskHandle chainTaskHandle= taskRunLoop(chainTaskSet, 20);
 //       if (buttonIsNewPress(JOY1_8U)) {
   //        autonomous();
 //        }
+
+        if(buttonGetState(JOY1_6U)){
+          manual=true;
+          blrsMotorSet(CHAIN, 80, true);
+        }
+        else if(buttonGetState(JOY1_6D)){
+          manual=true;
+          blrsMotorSet(CHAIN, -60, true);
+        }
+        else if(buttonIsNewPress(JOY1_8R)){
+          manual=false;
+          chainSetPos(3000);                  //out Potentiometer value
+        }
+        else if(buttonIsNewPress(JOY1_8L)){
+          manual=false;
+          chainSetPos(200);                   // in Potentiometer value
+        }
+        else if(manual){
+          blrsMotorSet(CHAIN, 0, true);
+        }
+        else
+        chainRun();
 
         if(buttonGetState(JOY1_5D)) {
           blrsMotorSet(ARM_LEFT, -45, true);  //Lower Arm

@@ -18,11 +18,20 @@
 //   LIFT_TOP
 // };
 //
+
+static fbc_t chainController;
+static fbc_pid_t chainPid;
+
  static void _liftSet(int power) {
    blrsMotorSet(ARM_LEFT, power, false);
    blrsMotorSet(ARM_RIGHT, power, false);
  }
-
+void chainSet(int power){
+  blrsMotorSet(CHAIN, power, true);
+}
+int chainGetPos(){
+  return analogRead(CHAIN_POT);
+}
 void liftInit() {
 //   blrsMotorInit(ARM_LEFT, false, LIFT_SLEW, NULL);
 //   blrsMotorInit(ARM_RIGHT, true, LIFT_SLEW, NULL);
@@ -31,32 +40,21 @@ void liftInit() {
    blrsMotorInit(INTAKE, true, NULL, NULL);
    blrsMotorInit(CHAIN, false, NULL, NULL);
    blrsMotorInit(CLAW, false, NULL, NULL);
-
+   fbcInit(&chainController, chainSet, chainGetPos, NULL, LIFT_NEG_DEADBAND, LIFT_POS_DEADBAND, LIFT_PID_TOL, LIFT_PID_CONF);
+   fbcPIDInitializeData(&chainPid, LIFT_KP, 0, LIFT_KD, 0, 0);
+   fbcPIDInit(&chainController,&chainPid);
   // fbcInit(&liftController, _liftSet, liftGetPos, NULL, LIFT_NEG_DEADBAND, LIFT_POS_DEADBAND, LIFT_PID_TOL, LIFT_PID_CONF);
   // fbcPIDInitializeData(&lift_pid, LIFT_KP, 0, LIFT_KD, 0, 0);
   // fbcPIDInit(&liftController, &lift_pid);
  }
  void chainSetPos(int goal){
-    while(analogRead(CHAIN_POT) < goal){
-      if(analogRead(CHAIN_POT) < (goal - 500)){
-      blrsMotorSet(CHAIN, -80, true);
-     }
-     else {
-     blrsMotorSet(CHAIN, -40, true);
-     }
-     delay(20);
-    }
-    while(analogRead(CHAIN_POT) > goal){
-      if(analogRead(CHAIN_POT) > (goal+500)){
-      blrsMotorSet(CHAIN, 60, true);
-    }
-     else {
-       blrsMotorSet(CHAIN, 20, true);
-     }
-      delay(20);
-    }
-      blrsMotorSet(CHAIN, 0, true);
-  }
+   fbcSetGoal(&chainController, goal);
+ }
+void chainRun(){
+  fbcRunContinuous(&chainController);
+}
+
+
 void chainTaskInitialize(){
   TaskHandle chainTaskHandle = taskRunLoop(chainTaskSet, 20);
 }
