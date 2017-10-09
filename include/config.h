@@ -39,7 +39,7 @@
 #define LIFT_NEG_DEADBAND -5
 #define LIFT_PID_TOL 30
 #define LIFT_PID_CONF 5
-#define LIFT_KP 0.1f
+#define LIFT_KP 0.4f
 #define LIFT_KD 0.01f
 
 #define LIFT_BOTTOM 1950

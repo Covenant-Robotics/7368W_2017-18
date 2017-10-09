@@ -47,13 +47,15 @@ void liftInit() {
   // fbcPIDInitializeData(&lift_pid, LIFT_KP, 0, LIFT_KD, 0, 0);
   // fbcPIDInit(&liftController, &lift_pid);
  }
- void chainSetPos(int goal){
+ void chainSetPos(int goal){                //Function to set PID goal
    fbcSetGoal(&chainController, goal);
  }
-void chainRun(){
+void chainRun(){                            
   fbcRunContinuous(&chainController);
 }
-
+void chainFindDeadband(){
+  fbcFindDeadband(&chainController, 5, NULL);
+}
 
 void chainTaskInitialize(){
   TaskHandle chainTaskHandle = taskRunLoop(chainTaskSet, 20);

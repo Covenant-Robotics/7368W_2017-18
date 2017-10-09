@@ -1,12 +1,12 @@
 #include "main.h"
 
-static int clamp(int in) { return (abs(in) > 15) ? in : 0; }
+static int clamp(int in) { return (abs(in) > 15) ? in : 0; }   //Deadband used for Joystick to reduce noise while not moving
 
 void operatorControl() {
     bool tank = false;
     bool manual = true;
     while (1) {
-      if (buttonIsNewPress(JOY1_7L))
+      if (buttonIsNewPress(JOY1_7L))                //Button 7L changes Drive type
         tank = !tank;
 
       if (tank) {
@@ -20,25 +20,24 @@ void operatorControl() {
         chassisSet(power + turn, power - turn);
       }
 
-  //    chainTaskInitialize();
-//      TaskHandle chainTaskHandle= taskRunLoop(chainTaskSet, 20);
-//       if (buttonIsNewPress(JOY1_8U)) {
-  //        autonomous();
-//        }
+      if (buttonIsNewPress(JOY1_7R)) {              //testing to find deadband of PID loops
+          chainFindDeadband();
+//                autonomous();
+        }
 
-        if(buttonGetState(JOY1_6U)){
+        if(buttonGetState(JOY1_6U)){            //Button 6U for manual up control of Chain bar
           manual=true;
           blrsMotorSet(CHAIN, 80, true);
         }
-        else if(buttonGetState(JOY1_6D)){
+        else if(buttonGetState(JOY1_6D)){       //Button 6D for manual down control of Chain bar
           manual=true;
           blrsMotorSet(CHAIN, -60, true);
         }
-        else if(buttonIsNewPress(JOY1_8R)){
+        else if(buttonIsNewPress(JOY1_8R)){     //Button 8R used for PID attach to out pos. of Chain bar
           manual=false;
           chainSetPos(3000);                  //out Potentiometer value
         }
-        else if(buttonIsNewPress(JOY1_8L)){
+        else if(buttonIsNewPress(JOY1_8L)){     //Button 8L used for PID attach to in pos. of Chain bar
           manual=false;
           chainSetPos(200);                   // in Potentiometer value
         }
@@ -46,13 +45,13 @@ void operatorControl() {
           blrsMotorSet(CHAIN, 0, true);
         }
         else
-        chainRun();
+        chainRun();                           //run PID continuously until next input
 
-        if(buttonGetState(JOY1_5D)) {
-          blrsMotorSet(ARM_LEFT, -45, true);  //Lower Arm
+        if(buttonGetState(JOY1_5D)) {         //Button 5D for lowering arm
+          blrsMotorSet(ARM_LEFT, -45, true);
           blrsMotorSet(ARM_RIGHT, -45, true);
         }
-        else if(buttonGetState(JOY1_5U)) {  //Raise Arm
+        else if(buttonGetState(JOY1_5U)) {   //Button 5U for raising Arm
           blrsMotorSet(ARM_LEFT, 80, true);
           blrsMotorSet(ARM_RIGHT, 80, true);
         }
@@ -62,49 +61,26 @@ void operatorControl() {
         }
 
 
-        if (buttonGetState(JOY1_7U)) {  //Going out Intake
+        if (buttonGetState(JOY1_7U)) {      //Button 7U for going out mogo intake
           blrsMotorSet(INTAKE, 80, true);
         }
-        else if(buttonGetState(JOY1_7D)) {  //Bringing In Intake
+        else if(buttonGetState(JOY1_7D)) {  //Button 7D for bringing in mogo intake
           blrsMotorSet(INTAKE, -80, true);
         }
         else {
-          blrsMotorSet(INTAKE, 0, true);  //Intake =0
+          blrsMotorSet(INTAKE, 0, true);    //Intake =0
         }
 
-
-        // if(buttonGetState(JOY1_6U)) {   //Raise chain Pot value of 1300 is all the way up
-        //   blrsMotorSet(CHAIN, 80, true);
-        // }
-        // else if(buttonGetState(JOY1_6D)){ //Lower chain Pot value of 7 is all the way down...broekn Pots??
-        //   blrsMotorSet(CHAIN, -60, true);
-        // }
-        // else{
-        //   blrsMotorSet(CHAIN, 0, true); //chain
-        // }
-
-
-        if(buttonGetState(JOY1_8U)){  //Open Claw
+        if(buttonGetState(JOY1_8U)){        //Button 8U for Open Claw
           blrsMotorSet(CLAW, 127, true);
         }
-        else if(buttonGetState(JOY1_8D)){ //Close claw
+        else if(buttonGetState(JOY1_8D)){   //Button 8D for Close claw
           blrsMotorSet(CLAW, -100, true);
         }
         else{
-          blrsMotorSet(CLAW, 0, true);  //Claw =0
+          blrsMotorSet(CLAW, 0, true);     //Claw =0
         }
 
-      //   if(buttonGetState(JOY1_8R)){
-      //      chainSetPos(3000);             //tune this value for chain distance outside stack
-      //      blrsMotorSet(CHAIN, 0, true); //chain
-      //  }
-      //     if(buttonGetState(JOY1_8L)){
-      //       chainSetPos(200);            //tune this value for chain distance while stacking
-      //       blrsMotorSet(CHAIN, 0, true); //chain
-      //     }
-
-
-       printf("Chain Pot %d\n", analogRead(CHAIN_POT));
         delay(20);
     }
 }

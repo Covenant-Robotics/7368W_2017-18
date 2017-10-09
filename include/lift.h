@@ -24,6 +24,7 @@ void chainRun();
 void chainSetPos(int goal);
 void chainTaskSet();
 void chainTaskInitialize();
+void chainFindDeadband();
 
 int liftGetPos();
 int liftGetSpeed();
