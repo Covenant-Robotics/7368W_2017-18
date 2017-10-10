@@ -21,8 +21,8 @@ void operatorControl() {
       }
 
       if (buttonIsNewPress(JOY1_7R)) {              //testing to find deadband of PID loops
-          chainPidAutotune();
-//          chainFindDeadband();
+//          chainPidAutotune();
+          chainFindDeadband();
 //                autonomous();
         }
 

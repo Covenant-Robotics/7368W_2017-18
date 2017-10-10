@@ -46,12 +46,13 @@
 #define LIFT_TIP_CONE 2200
 
 #define LIFT_SLEW 0.35f
+
 //Chain Constants
-#define CHAIN_POS_DEADBAND 27
-#define CHAIN_NEG_DEADBAND -9
+#define CHAIN_POS_DEADBAND 10
+#define CHAIN_NEG_DEADBAND -10
 #define CHAIN_PID_TOL 30
 #define CHAIN_PID_CONF 5
-#define CHAIN_KP 0.4f
+#define CHAIN_KP 0.1f
 #define CHAIN_KD 0.01f
 
 
