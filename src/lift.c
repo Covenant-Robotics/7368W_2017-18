@@ -8,8 +8,8 @@
 // =======
 //
 // >>>>>>> master
- static fbc_t liftController;
- static fbc_pid_t lift_pid;
+// static fbc_t liftController;
+// static fbc_pid_t lift_pid;
 // static TaskHandle liftTask;
 //
 // int lift_positions[3] = {
@@ -22,10 +22,10 @@
 static fbc_t chainController;
 static fbc_pid_t chainPid;
 
- static void _liftSet(int power) {
-   blrsMotorSet(ARM_LEFT, power, false);
-   blrsMotorSet(ARM_RIGHT, power, false);
- }
+ // static void _liftSet(int power) {
+ //   blrsMotorSet(ARM_LEFT, power, false);
+ //   blrsMotorSet(ARM_RIGHT, power, false);
+ // }
 void chainSet(int power){
   blrsMotorSet(CHAIN, power, true);
 }
@@ -38,10 +38,10 @@ void liftInit() {
    blrsMotorInit(ARM_LEFT, false, NULL, NULL);
    blrsMotorInit(ARM_RIGHT, true, NULL, NULL);
    blrsMotorInit(INTAKE, true, NULL, NULL);
-   blrsMotorInit(CHAIN, false, NULL, NULL);
+   blrsMotorInit(CHAIN, true, NULL, NULL);
    blrsMotorInit(CLAW, false, NULL, NULL);
-   fbcInit(&chainController, chainSet, chainGetPos, NULL, LIFT_NEG_DEADBAND, LIFT_POS_DEADBAND, LIFT_PID_TOL, LIFT_PID_CONF);
-   fbcPIDInitializeData(&chainPid, LIFT_KP, 0, LIFT_KD, 0, 0);
+   fbcInit(&chainController, chainSet, chainGetPos, NULL, CHAIN_NEG_DEADBAND, CHAIN_POS_DEADBAND, CHAIN_PID_TOL, CHAIN_PID_CONF);
+   fbcPIDInitializeData(&chainPid, CHAIN_KP, 0, CHAIN_KD, 0, 0);
    fbcPIDInit(&chainController,&chainPid);
   // fbcInit(&liftController, _liftSet, liftGetPos, NULL, LIFT_NEG_DEADBAND, LIFT_POS_DEADBAND, LIFT_PID_TOL, LIFT_PID_CONF);
   // fbcPIDInitializeData(&lift_pid, LIFT_KP, 0, LIFT_KD, 0, 0);
@@ -50,31 +50,34 @@ void liftInit() {
  void chainSetPos(int goal){                //Function to set PID goal
    fbcSetGoal(&chainController, goal);
  }
-void chainRun(){                            
+void chainRun(){                            //Function to continuously use PID on chain
   fbcRunContinuous(&chainController);
 }
-void chainFindDeadband(){
-  fbcFindDeadband(&chainController, 5, NULL);
+void chainFindDeadband(){                   //Function for finding PID deadband
+  fbcFindDeadband(&chainController, 50, uart1);
+}
+void chainPidAutotune(){
+  fbcPIDAutotune(&chainController, 3, 15, 3000, 50, uart1, 0, .7, 0, 0.001, 0, 0.01, 3, 5);
 }
 
-void chainTaskInitialize(){
-  TaskHandle chainTaskHandle = taskRunLoop(chainTaskSet, 20);
-}
+// void chainTaskInitialize(){
+//   TaskHandle chainTaskHandle = taskRunLoop(chainTaskSet, 20);
+// }
 void chainTaskSet(){
   if(buttonGetState(JOY1_6U)) {   //Raise chain Pot value of 1300 is all the way up
-    blrsMotorSet(CHAIN, 80, true);
+    blrsMotorSet(CHAIN, -80, true);
   }
-  else if(buttonGetState(JOY1_6D)){ //Lower chain Pot value of 7 is all the way down...broekn Pots??
-    blrsMotorSet(CHAIN, -60, true);
+  else if(buttonGetState(JOY1_6D)){
+    blrsMotorSet(CHAIN, 60, true);
   }
   while(JOY1_6U == 0 && JOY1_6D == 0){
     if(buttonGetState(JOY1_8R)){
        chainSetPos(3000);             //tune this value for chain distance outside stack
-       blrsMotorSet(CHAIN, 0, true); //chain
+       blrsMotorSet(CHAIN, 0, true);
    }
       if(buttonGetState(JOY1_8L)){
         chainSetPos(200);            //tune this value for chain distance while stacking
-        blrsMotorSet(CHAIN, 0, true); //chain
+        blrsMotorSet(CHAIN, 0, true);
       }
       else{
         blrsMotorSet(CHAIN, 0, true); //chain

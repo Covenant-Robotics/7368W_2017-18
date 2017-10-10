@@ -20,7 +20,6 @@
 #define ARM_POT 1
 #define CHAIN_POT 2
 #define MOGO_POT 3
-
 #define DRIVE_SLEW 0.5f
 
 
@@ -39,15 +38,21 @@
 #define LIFT_NEG_DEADBAND -5
 #define LIFT_PID_TOL 30
 #define LIFT_PID_CONF 5
-#define LIFT_KP 0.4f
-#define LIFT_KD 0.01f
+#define LIFT_KP 0.2f
+#define LIFT_KD 0.001f
 
 #define LIFT_BOTTOM 1950
 #define LIFT_TOP 3600
 #define LIFT_TIP_CONE 2200
 
 #define LIFT_SLEW 0.35f
-
+//Chain Constants
+#define CHAIN_POS_DEADBAND 27
+#define CHAIN_NEG_DEADBAND -9
+#define CHAIN_PID_TOL 30
+#define CHAIN_PID_CONF 5
+#define CHAIN_KP 0.4f
+#define CHAIN_KD 0.01f
 
 
 #endif

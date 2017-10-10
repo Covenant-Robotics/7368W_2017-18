@@ -42,6 +42,8 @@ void initialize() {
   motorManagerInit();
   chassisInit();
   liftInit();
+  lcdInit(uart1);
+  lcdClear(uart1);
 }
 // <<<<<<< HEAD
 //   //liftInit();

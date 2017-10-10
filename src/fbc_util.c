@@ -30,7 +30,7 @@ static double lock(double in, double lo, double hi) {
 }
 
 
-void pidAutoTune(fbc_t* fbc, int num_iterations, int num_particles, int timeout, int goal,
+void fbcPIDAutotune(fbc_t* fbc, int num_iterations, int num_particles, int timeout, int goal,
 		 FILE* lcd, double kP_min, double kP_max, double kI_min, double kI_max,
 		 double kD_min, double kD_max, double k_settle, double k_itae) {
   if (num_particles > MAX_PARTICLES) {
