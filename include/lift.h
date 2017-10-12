@@ -20,6 +20,7 @@ void liftDecrementPos();
 void liftSnapToPos();
 void liftPID();
 void liftSetPos(int pos);
+
 void chainRun();
 void chainSetPos(int goal);
 void chainTaskSet();
@@ -27,7 +28,11 @@ void chainTaskInitialize();
 void chainFindDeadband();
 void chainPidAutotune();
 
+void coneTaskSet();
+void coneTaskInitialize();
+
 int liftGetPos();
 int liftGetSpeed();
+int chainGetPos();
 
 #endif

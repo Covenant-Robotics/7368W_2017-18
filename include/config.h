@@ -17,6 +17,7 @@
 #define ENCODER_LEFT_BOTTOM 2
 #define ENCODER_RIGHT_TOP 3
 #define ENCODER_RIGHT_BOTTOM 4
+
 #define ARM_POT 1
 #define CHAIN_POT 2
 #define MOGO_POT 3

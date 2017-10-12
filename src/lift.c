@@ -60,9 +60,36 @@ void chainPidAutotune(){
   fbcPIDAutotune(&chainController, 3, 15, 3000, 50, uart1, 0, .7, 0, 0.001, 0, 0.01, 3, 5);
 }
 
-// void chainTaskInitialize(){
-//   TaskHandle chainTaskHandle = taskRunLoop(chainTaskSet, 20);
-// }
+void coneTaskSet(void * parameter){
+  blrsMotorSet(CLAW, -100, true);
+  delay(200);
+  blrsMotorSet(ARM_LEFT, 80, true);
+  blrsMotorSet(ARM_RIGHT, 80, true);
+  delay(200);
+  blrsMotorSet(CLAW, 0, true);
+  delay(500);
+  blrsMotorSet(ARM_LEFT, 0, true);
+  blrsMotorSet(ARM_RIGHT, 0, true);
+
+  while(analogRead(CHAIN_POT < 3000)){
+    blrsMotorSet(CHAIN, 80, true);
+  }
+  blrsMotorSet(CHAIN, 0, true);
+  delay(20);
+  while(analogRead(ARM_POT) < 790){
+    blrsMotorSet(ARM_LEFT, -60, true);
+    blrsMotorSet(ARM_RIGHT, -60, true);
+  }
+  blrsMotorSet(ARM_LEFT, 0, true);
+  blrsMotorSet(ARM_RIGHT, 0, true);
+}
+
+ void coneTaskInitialize(){
+   TaskHandle coneTaskHandle = taskCreate(coneTaskSet, TASK_DEFAULT_STACK_SIZE, NULL, TASK_PRIORITY_DEFAULT);//(coneTaskSet, 20);
+   taskSuspend(coneTaskHandle);
+ }
+
+
 void chainTaskSet(){
   if(buttonGetState(JOY1_6U)) {   //Raise chain Pot value of 1300 is all the way up
     blrsMotorSet(CHAIN, -80, true);
