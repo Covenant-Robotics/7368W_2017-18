@@ -15,4 +15,9 @@ void chassisPIDSet (int goal);
 
 fbc_t* chassisGetPID ();
 
+/**
+ * Example Autotune routine
+ */
+void chassisPidAutotune();
+
 #endif // _CHASSIS_H_

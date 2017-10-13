@@ -2,7 +2,27 @@
 
 static int clamp(int in) { return (abs(in) > 15) ? in : 0; }   //Deadband used for Joystick to reduce noise while not moving
 
+
+
+/**
+ * Example implementation of autotune
+ */
+#define AUTOTUNE 1
+
+
+
 void operatorControl() {
+
+	/**
+	 * Example implementation of autotune
+	 */
+	#if AUTOTUNE
+		chassisPidAutotune();
+		while(true) delay(20);
+	#endif
+
+
+
     bool tank = false;
     bool manual = true;
     while (1) {

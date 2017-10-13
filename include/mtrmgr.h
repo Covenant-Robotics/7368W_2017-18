@@ -1,7 +1,7 @@
 /**
- * @file PROS Smart Motor Library (SML)
+ * @file Team BLRS Motor Manager Library (MtrMgr Library)
  * @brief Provides additional functionality for interfacing with the Vex motors.
- * Allows for linear scaling to account for the MC29s (trueSpeed), slewing,
+ * Allows for output recalculation to account for the MC29s (trueSpeed), slewing,
  * and easier configuration for motor characteristics (reversal, etc.)
  *
  * @author Elliot Berman, Jonathan Bayless, Brian Hanford
@@ -28,12 +28,13 @@
 */
 typedef struct {
   unsigned char port;         // port number of given motor
-  int pwm;                    // current pwm value
   int cmd;                    // commanded pwm value
-  unsigned long _lastUpdate;  // time (msec) of last commanded value
   float slewrate;             // caps the motor's acceleration
   char inverted;              // flips the motor output to avoid electrically flipping motors
   int(*recalculate)(int);     // used to scale the motor output for trueSpeed or other scalings
+
+  unsigned long _lastUpdate;  // time (msec) of last commanded value
+  int _prev;                  // past commanded value
 } Motor;
 
 /**
@@ -52,11 +53,12 @@ void motorManagerStop();
  * @param channel
  *        The port of the motor [1,10]
  *
- * @param invertedf
+ * @param inverted
  *        If the motor port is inverted, then set to true (127 will become -127 and vice versa)
  *
- * @param slewa
- *        The acceleration of the motor in dPWM/millisecond. DEFAULT_SLEW_RATE is available, which sets dPWM/millisecond to 0.75
+ * @param slew
+ *        The acceleration of the motor in dPWM/millisecond. DEFAULT_SLEW_RATE is available,
+ *        which sets dPWM/millisecond to 0.75
  *
  * @param recalculate
  *        function pointer to the scaling function for the motor. Supplying NULL will not provide

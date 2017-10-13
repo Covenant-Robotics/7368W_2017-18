@@ -40,7 +40,7 @@ void liftInit() {
    blrsMotorInit(INTAKE, true, NULL, NULL);
    blrsMotorInit(CHAIN, true, NULL, NULL);
    blrsMotorInit(CLAW, false, NULL, NULL);
-   fbcInit(&chainController, chainSet, chainGetPos, NULL, CHAIN_NEG_DEADBAND, CHAIN_POS_DEADBAND, CHAIN_PID_TOL, CHAIN_PID_CONF);
+   fbcInit(&chainController, chainSet, chainGetPos, NULL, NULL, CHAIN_NEG_DEADBAND, CHAIN_POS_DEADBAND, CHAIN_PID_TOL, CHAIN_PID_CONF);
    fbcPIDInitializeData(&chainPid, CHAIN_KP, 0, CHAIN_KD, 0, 0);
    fbcPIDInit(&chainController,&chainPid);
   // fbcInit(&liftController, _liftSet, liftGetPos, NULL, LIFT_NEG_DEADBAND, LIFT_POS_DEADBAND, LIFT_PID_TOL, LIFT_PID_CONF);
@@ -57,6 +57,9 @@ void chainFindDeadband(){                   //Function for finding PID deadband
   fbcFindDeadband(&chainController, 50, uart1);
 }
 void chainPidAutotune(){
+
+	// You might want to increase the goal from 50 something like 500-1000 depending on the range of the arm
+
   fbcPIDAutotune(&chainController, 3, 15, 3000, 50, uart1, 0, .7, 0, 0.001, 0, 0.01, 3, 5);
 }
 
