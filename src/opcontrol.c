@@ -2,31 +2,12 @@
 
 static int clamp(int in) { return (abs(in) > 15) ? in : 0; }   //Deadband used for Joystick to reduce noise while not moving
 
-
-
-/**
- * Example implementation of autotune
- */
-#define AUTOTUNE 1
-
-
-
 void operatorControl() {
-
-	/**
-	 * Example implementation of autotune
-	 */
-	#if AUTOTUNE
-		chassisPidAutotune();
-		while(true) delay(20);
-	#endif
-
-
 
     bool tank = false;
     bool manual = true;
     while (1) {
-      lcdPrint(uart1, 1, "Pot Value: %d", analogRead(ARM_POT));
+      lcdPrint(uart1, 1, "Pot Value: %d", analogRead(CHAIN_POT));
       if (buttonIsNewPress(JOY1_7L))                //Button 7L changes Drive type
         tank = !tank;
 
@@ -46,10 +27,15 @@ void operatorControl() {
           chainFindDeadband();
 //                autonomous();
         }
-        if (buttonGetState(JOY1_8U)){
-          coneTaskInitialize();
+        if (buttonIsNewPress(JOY1_8U)){
+      //    taskResume(coneResetTask)
+					coneResetTask();
+					delay(20);
+					taskSuspend(coneResetTask());
         }
-
+				// else {
+				// 	taskSuspend(coneResetTask());
+				// }
         if (analogRead(CHAIN_POT) < 600 && !buttonGetState(JOY1_6U) && !buttonGetState(JOY1_8L) && !buttonGetState(JOY1_8R) ){
           blrsMotorSet(CHAIN, 30, true);
         }
@@ -98,7 +84,7 @@ else {
   blrsMotorSet(INTAKE, 0, true);    //Intake =0
 }
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-if(buttonGetState(JOY1_8D)){   //Button 8D for Close claw
+if(buttonGetState(JOY1_8D)){   //Button 8D for open claw
   blrsMotorSet(CLAW, -100, true);
   }
 else{

@@ -50,12 +50,15 @@ void liftInit() {
  void chainSetPos(int goal){                //Function to set PID goal
    fbcSetGoal(&chainController, goal);
  }
+
 void chainRun(){                            //Function to continuously use PID on chain
   fbcRunContinuous(&chainController);
 }
+
 void chainFindDeadband(){                   //Function for finding PID deadband
   fbcFindDeadband(&chainController, 50, uart1);
 }
+
 void chainPidAutotune(){
 
 	// You might want to increase the goal from 50 something like 500-1000 depending on the range of the arm
@@ -63,23 +66,23 @@ void chainPidAutotune(){
   fbcPIDAutotune(&chainController, 3, 15, 3000, 50, uart1, 0, .7, 0, 0.001, 0, 0.01, 3, 5);
 }
 
-void coneTaskSet(void * parameter){
+void coneTaskSet(void * param){
   blrsMotorSet(CLAW, -100, true);
-  delay(200);
+  delay(1000);
   blrsMotorSet(ARM_LEFT, 80, true);
   blrsMotorSet(ARM_RIGHT, 80, true);
-  delay(200);
+  delay(1000);
   blrsMotorSet(CLAW, 0, true);
   delay(500);
   blrsMotorSet(ARM_LEFT, 0, true);
   blrsMotorSet(ARM_RIGHT, 0, true);
-
-  while(analogRead(CHAIN_POT < 3000)){
+  delay(500);
+  while(analogRead(CHAIN_POT < 2500)){
     blrsMotorSet(CHAIN, 80, true);
   }
   blrsMotorSet(CHAIN, 0, true);
   delay(20);
-  while(analogRead(ARM_POT) < 790){
+  while(analogRead(ARM_POT) < 1400){
     blrsMotorSet(ARM_LEFT, -60, true);
     blrsMotorSet(ARM_RIGHT, -60, true);
   }
@@ -87,10 +90,12 @@ void coneTaskSet(void * parameter){
   blrsMotorSet(ARM_RIGHT, 0, true);
 }
 
- void coneTaskInitialize(){
-   TaskHandle coneTaskHandle = taskCreate(coneTaskSet, TASK_DEFAULT_STACK_SIZE, NULL, TASK_PRIORITY_DEFAULT);//(coneTaskSet, 20);
-   taskSuspend(coneTaskHandle);
- }
+// void coneTaskInitialize(){
+   TaskHandle coneResetTask(){
+    return taskCreate(coneTaskSet, TASK_DEFAULT_STACK_SIZE, NULL, TASK_PRIORITY_DEFAULT);//(coneTaskSet, 20);
+  }
+  // taskSuspend(coneTaskHandle);
+ //}
 
 
 void chainTaskSet(){

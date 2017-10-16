@@ -28,6 +28,8 @@ void chainTaskInitialize();
 void chainFindDeadband();
 void chainPidAutotune();
 
+TaskHandle coneResetTask();
+
 void coneTaskSet();
 void coneTaskInitialize();
 
