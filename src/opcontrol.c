@@ -7,7 +7,7 @@ void operatorControl() {
     bool tank = false;
     bool manual = true;
     while (1) {
-      lcdPrint(uart1, 1, "Pot Value: %d", analogRead(CHAIN_POT));
+      lcdPrint(uart1, 1, "Pot Value: %d", analogRead(ARM_POT));
       if (buttonIsNewPress(JOY1_7L))                //Button 7L changes Drive type
         tank = !tank;
 

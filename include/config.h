@@ -3,12 +3,12 @@
 
 #include "main.h"
 
-#define MOTOR_RIGHT_FRONT 8
+#define MOTOR_RIGHT_FRONT 8 //on power expander
 #define MOTOR_RIGHT_BACK 9
 #define MOTOR_LEFT_FRONT 2
-#define MOTOR_LEFT_BACK 3
-#define ARM_LEFT 5
-#define ARM_RIGHT 6
+#define MOTOR_LEFT_BACK 3 //on power expander
+#define ARM_LEFT 5 //on power expander
+#define ARM_RIGHT 6 //on power expander
 #define CLAW 7
 #define INTAKE 1
 #define CHAIN 4
