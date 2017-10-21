@@ -37,4 +37,12 @@ int liftGetPos();
 int liftGetSpeed();
 int chainGetPos();
 
+//New Functions
+void stack(unsigned int height);
+void chainSet(int power);
+void liftSet(int power);
+void clawSet(int power);
+void mogoSet(int power);
+void liftToDriverLoad();
+
 #endif

@@ -2,6 +2,102 @@
 
 static int clamp(int in) { return (abs(in) > 15) ? in : 0; }   //Deadband used for Joystick to reduce noise while not moving
 
+#define MANUAL 0
+#define AUTOSTACK 1
+#define DRIVER_LOADS 2
+
+void operatorControl() {
+	int arm_state = MANUAL;
+	unsigned int stack_height = 0;
+	while (true) {
+
+		//TODO: Add a check for the mobile goal intake to keep from sending power if the lift is in its path
+
+		// Drivetrain Controls
+		int power = clamp(joystickGetAnalog(1, 3)); // vertical axis on left joystick
+		int turn  = clamp(joystickGetAnalog(1, 1)); // horizontal axis on left joystick
+		chassisSet(power + turn, power - turn);
+
+		// Mogo Manual Controls
+		if (buttonGetState(JOY1_8L)) {
+			mogoSet(-80);
+		}
+		else if (buttonGetState(JOY1_8R)) {
+			mogoSet(80);
+		}
+		else {
+			mogoSet(0);
+		}
+
+		// Lift Manual Controls
+		if (buttonGetState(JOY1_5U)) {
+			arm_state = MANUAL;
+			liftSet(80);
+		}
+		else if (buttonGetState(JOY1_5D)) {
+			arm_state = MANUAL;
+			liftSet(-45);
+		}
+		else if (arm_state == MANUAL) {
+			liftSet(0);
+		}
+
+		// ChainBar Manual Controls
+		if (buttonGetState(JOY1_6U)) {
+			arm_state = MANUAL;
+			chainSet(80);
+		}
+		else if (buttonGetState(JOY1_6D)) {
+			arm_state = MANUAL;
+			chainSet(-60);
+		}
+		else if (arm_state == MANUAL) {
+			chainSet(0);
+		}
+
+		// Claw Manual Controls
+		if (buttonGetState(JOY1_8D)) {
+			arm_state = MANUAL;
+			clawSet(-100);
+		}
+		else if (arm_state == MANUAL) {
+			clawSet(0);
+		}
+
+		// Autostacking
+		if (buttonGetState(JOY1_7U)) {
+			arm_state = AUTOSTACK;
+		}
+		else if (buttonGetState(JOY1_8U)) {
+			arm_state = DRIVER_LOADS;
+		}
+
+		// Stack Height Counting
+		if (buttonIsNewPress(JOY1_7R)) {
+			stack_height++;
+		}
+		else if (buttonIsNewPress(JOY1_7L)) {
+			stack_height--;
+		}
+		else if (buttonIsNewPress(JOY1_7D)) {
+			stack_height = 0;
+		}
+
+		// Background Arm Movement
+		if (arm_state == AUTOSTACK) {
+			// Will probably also need to pass in an argument to specify if the autostacker should go to the ground
+			// or the driver load station
+			stack(stack_height + 1);
+		}
+		else if (arm_state == DRIVER_LOADS) {
+			liftToDriverLoad();
+		}
+
+		delay(20);
+	}
+}
+
+/*
 void operatorControl() {
 
     bool tank = false;
@@ -94,3 +190,4 @@ else{
       delay(20);
     }
 }
+*/

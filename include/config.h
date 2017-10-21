@@ -39,7 +39,7 @@
 #define LIFT_NEG_DEADBAND -5
 #define LIFT_PID_TOL 30
 #define LIFT_PID_CONF 5
-#define LIFT_KP 0.2f
+#define LIFT_KP 0.25f
 #define LIFT_KD 0.001f
 
 #define LIFT_BOTTOM 1950
@@ -48,13 +48,17 @@
 
 #define LIFT_SLEW 0.35f
 
+#define LIFT_DRIVER_POS 1400 //needs testing to find this
+
 //Chain Constants
 #define CHAIN_POS_DEADBAND 10
 #define CHAIN_NEG_DEADBAND -10
 #define CHAIN_PID_TOL 30
 #define CHAIN_PID_CONF 5
-#define CHAIN_KP 0.1f
+#define CHAIN_KP 0.08f
 #define CHAIN_KD 0.01f
 
+#define CHAIN_INTAKE 2300
+#define CHAIN_STACK 300
 
 #endif
