@@ -35,9 +35,9 @@
 #define DRIVE_INTEGRAL_CAP 500
 
 //Lift Constants
-#define LIFT_POS_DEADBAND 22
-#define LIFT_NEG_DEADBAND -5
-#define LIFT_PID_TOL 30
+#define LIFT_POS_DEADBAND 28
+#define LIFT_NEG_DEADBAND -15
+#define LIFT_PID_TOL 50
 #define LIFT_PID_CONF 5
 #define LIFT_KP 0.25f
 #define LIFT_KD 0.001f
@@ -51,14 +51,17 @@
 #define LIFT_DRIVER_POS 1400 //needs testing to find this
 
 //Chain Constants
-#define CHAIN_POS_DEADBAND 10
-#define CHAIN_NEG_DEADBAND -10
-#define CHAIN_PID_TOL 30
-#define CHAIN_PID_CONF 5
-#define CHAIN_KP 0.08f
+#define CHAIN_POS_DB_STACK 50
+#define CHAIN_NEG_DB_STACK -10
+#define CHAIN_POS_DB_INTAKE 10
+#define CHAIN_NEG_DB_INTAKE -50
+
+#define CHAIN_PID_TOL 200
+#define CHAIN_PID_CONF 30
+#define CHAIN_KP 0.2f
 #define CHAIN_KD 0.01f
 
-#define CHAIN_INTAKE 2300
-#define CHAIN_STACK 300
+#define CHAIN_INTAKE 2700
+#define CHAIN_STACK 500
 
 #endif

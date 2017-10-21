@@ -10,6 +10,7 @@ void operatorControl() {
 	int arm_state = MANUAL;
 	unsigned int stack_height = 0;
 	while (true) {
+		bool stack_start = false;
 
 		//TODO: Add a check for the mobile goal intake to keep from sending power if the lift is in its path
 
@@ -45,11 +46,11 @@ void operatorControl() {
 		// ChainBar Manual Controls
 		if (buttonGetState(JOY1_6U)) {
 			arm_state = MANUAL;
-			chainSet(80);
+			chainSet(-60);
 		}
 		else if (buttonGetState(JOY1_6D)) {
 			arm_state = MANUAL;
-			chainSet(-60);
+			chainSet(80);
 		}
 		else if (arm_state == MANUAL) {
 			chainSet(0);
@@ -67,6 +68,7 @@ void operatorControl() {
 		// Autostacking
 		if (buttonGetState(JOY1_7U)) {
 			arm_state = AUTOSTACK;
+			stack_start = true;
 		}
 		else if (buttonGetState(JOY1_8U)) {
 			arm_state = DRIVER_LOADS;
@@ -87,7 +89,7 @@ void operatorControl() {
 		if (arm_state == AUTOSTACK) {
 			// Will probably also need to pass in an argument to specify if the autostacker should go to the ground
 			// or the driver load station
-			stack(stack_height + 1);
+			stack(stack_height + 1, stack_start);
 		}
 		else if (arm_state == DRIVER_LOADS) {
 			liftToDriverLoad();

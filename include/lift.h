@@ -38,7 +38,7 @@ int liftGetSpeed();
 int chainGetPos();
 
 //New Functions
-void stack(unsigned int height);
+void stack(unsigned int height, bool start);
 void chainSet(int power);
 void liftSet(int power);
 void clawSet(int power);
