@@ -8,8 +8,8 @@
 // =======
 //
 // >>>>>>> master
-// static fbc_t liftController;
-// static fbc_pid_t lift_pid;
+ static fbc_t liftController;
+ static fbc_pid_t lift_pid;
 // static TaskHandle liftTask;
 //
 // int lift_positions[3] = {
@@ -43,7 +43,8 @@ void liftInit() {
    fbcInit(&chainController, chainSet, chainGetPos, NULL, NULL, CHAIN_NEG_DEADBAND, CHAIN_POS_DEADBAND, CHAIN_PID_TOL, CHAIN_PID_CONF);
    fbcPIDInitializeData(&chainPid, CHAIN_KP, 0, CHAIN_KD, 0, 0);
    fbcPIDInit(&chainController,&chainPid);
-  // fbcInit(&liftController, _liftSet, liftGetPos, NULL, LIFT_NEG_DEADBAND, LIFT_POS_DEADBAND, LIFT_PID_TOL, LIFT_PID_CONF);
+
+  // fbcInit(&liftController, liftSet, liftGetPos, NULL, LIFT_NEG_DEADBAND, LIFT_POS_DEADBAND, LIFT_PID_TOL, LIFT_PID_CONF);
   // fbcPIDInitializeData(&lift_pid, LIFT_KP, 0, LIFT_KD, 0, 0);
   // fbcPIDInit(&liftController, &lift_pid);
  }
@@ -206,10 +207,9 @@ void chainTaskSet(){
 //   fbcRunContinuous(&liftController);
 // }
 //
-// void liftSetPos(int pos) {
-//   fbcSetGoal(&liftController, pos);
-// <<<<<<< HEAD
-// } */
+void liftSetPos(int pos) {
+   fbcSetGoal(&liftController, pos);
+}
 // =======
 // }
-// >>>>>>> master
+//

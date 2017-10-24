@@ -49,7 +49,7 @@ int chassisGetPos(){
   leftPos = encoderGet(leftEncoder);
   rightPos = encoderGet(rightEncoder);
   average = (leftPos + rightPos) / 2;
-  printf("encoderValue %d\n", average);
+//  printf("encoderValue %d\n", average);
   return ((leftPos + rightPos) / 2);
 }
 

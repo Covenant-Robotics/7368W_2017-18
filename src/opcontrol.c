@@ -3,11 +3,17 @@
 static int clamp(int in) { return (abs(in) > 15) ? in : 0; }   //Deadband used for Joystick to reduce noise while not moving
 
 void operatorControl() {
-
     bool tank = false;
     bool manual = true;
+    if(isAutonomous()){
+      lcdSetText(uart1, 1, "opcontrol");
+    }
     while (1) {
-      lcdPrint(uart1, 1, "Pot Value: %d", analogRead(ARM_POT));
+      if(!isAutonomous()){
+        lcdSetText(uart1, 1, "opcontrol loop");
+      }
+
+//      lcdPrint(uart1, 1, "Pot Value: %d", analogRead(ARM_POT));
       if (buttonIsNewPress(JOY1_7L))                //Button 7L changes Drive type
         tank = !tank;
 
@@ -36,8 +42,8 @@ void operatorControl() {
 				// else {
 				// 	taskSuspend(coneResetTask());
 				// }
-        if (analogRead(CHAIN_POT) < 600 && !buttonGetState(JOY1_6U) && !buttonGetState(JOY1_8L) && !buttonGetState(JOY1_8R) ){
-          blrsMotorSet(CHAIN, 30, true);
+        if (analogRead(CHAIN_POT) < 600 && analogRead(CHAIN_POT) > 300 && !buttonGetState(JOY1_6U) && !buttonGetState(JOY1_8L) && !buttonGetState(JOY1_8R) ){
+          blrsMotorSet(CHAIN, 20, true);
         }
         else if(buttonGetState(JOY1_6U)){            //Button 6U for manual up control of Chain bar
           manual=true;
@@ -74,10 +80,10 @@ else {
   blrsMotorSet(ARM_RIGHT, 0, true);
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-if (buttonGetState(JOY1_7U)) {      //Button 7U for going out mogo intake
+if (buttonGetState(JOY1_7U) && analogRead(ARM_POT) < 1400) {      //Button 7U for going out mogo intake
   blrsMotorSet(INTAKE, 80, true);
 }
-else if(buttonGetState(JOY1_7D)) {  //Button 7D for bringing in mogo intake
+else if(buttonGetState(JOY1_7D) && analogRead(ARM_POT) < 1400) {  //Button 7D for bringing in mogo intake
   blrsMotorSet(INTAKE, -80, true);
 }
 else {

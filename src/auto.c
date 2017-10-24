@@ -26,12 +26,31 @@
  * The autonomous task may exit, unlike operatorControl() which should never exit. If it does
  * so, the robot will await a switch to another mode or disable/enable cycle.
  */
+
 void autonomous() {
-  chassisPIDSet(3000);
-  while (!fbcIsConfident(chassisGetPID())){
-    fbcRunContinuous(chassisGetPID());
-    delay (20);
-//    printf("here");
+  if(!isAutonomous()){
+    lcdSetText(uart1, 1, "auton loop");
+  }
+  while(analogRead(CHAIN_POT) < 2600){
+    chainSet(80);
+  }
+  chainSet(0);
+  delay(20);
+  while(analogRead(ARM_POT) > 800){
+    blrsMotorSet(ARM_LEFT, 80, true);
+    blrsMotorSet(ARM_RIGHT, 80, true);
+  }
+  blrsMotorSet(ARM_LEFT, 0, true);
+  blrsMotorSet(ARM_RIGHT, 0, true);
+  delay(20);
+  while(chassisGetPos() < 100){
+    chassisSet(100, 100);
+  }
+  chassisSet(0, 0);
+  delay(20);
+  blrsMotorSet(CLAW, -100, true);
+  delay(500);
+  blrsMotorSet(CLAW, 0, true);
   }
 
 
@@ -44,4 +63,3 @@ void autonomous() {
     delay(20);
   }
   chassisSet(0, 0); */
-}
