@@ -9,8 +9,8 @@ static int clamp(int in) { return (abs(in) > 15) ? in : 0; }   //Deadband used f
 void operatorControl() {
 	int arm_state = MANUAL;
 	unsigned int stack_height = 0;
+	liftAutoReturnTaskInit();
 	while (true) {
-		bool stack_start = false;
 
 		//TODO: Add a check for the mobile goal intake to keep from sending power if the lift is in its path
 
@@ -68,7 +68,6 @@ void operatorControl() {
 		// Autostacking
 		if (buttonGetState(JOY1_7U)) {
 			arm_state = AUTOSTACK;
-			stack_start = true;
 		}
 		else if (buttonGetState(JOY1_8U)) {
 			arm_state = DRIVER_LOADS;
@@ -85,15 +84,19 @@ void operatorControl() {
 			stack_height = 0;
 		}
 
-		// Background Arm Movement
-		if (arm_state == AUTOSTACK) {
-			// Will probably also need to pass in an argument to specify if the autostacker should go to the ground
-			// or the driver load station
-			stack(stack_height + 1, stack_start);
-		}
-		else if (arm_state == DRIVER_LOADS) {
-			liftToDriverLoad();
-		}
+		// // Background Arm Movement
+		// if (arm_state == AUTOSTACK) {
+		// 	// Will probably also need to pass in an argument to specify if the autostacker should go to the ground
+		// 	// or the driver load station
+		// 	stack(stack_height + 1, stack_start);
+		// }
+		// else if (arm_state == DRIVER_LOADS) {
+		// 	liftToDriverLoad();
+		// }
+		if (arm_state == AUTOSTACK)
+			liftAutoReturnResume();
+		else if (arm_state == MANUAL)
+			liftAutoReturnSuspend();
 
 		delay(20);
 	}

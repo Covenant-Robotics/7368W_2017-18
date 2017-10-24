@@ -45,4 +45,7 @@ void clawSet(int power);
 void mogoSet(int power);
 void liftToDriverLoad();
 
+void liftAutoReturnTaskInit();
+void liftAutoReturnSuspend();
+void liftAutoReturnResume();
 #endif

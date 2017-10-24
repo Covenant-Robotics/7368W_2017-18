@@ -135,3 +135,55 @@ void stack(unsigned int height, bool start) {
 	else if (state == CLAW_OPEN)
 		clawSet(-100);
 }
+
+/**
+ * Sorta autostacking code, just raises then lowers the lift to get around the cone
+ *
+ * Going to try running this as a task since that was easier to explain
+ */
+#define LIFT_UP_DELTA 100 //how much the lift needs to go up to clear the cone
+bool start; //true if the macro should restart
+TaskHandle autoReturnTask;
+
+void _returnToIntaking(void* param) {
+	int cur = 0;
+MACRO_START:
+	cur = armController.goal;
+	fbcSetGoal(&armController, cur - LIFT_UP_DELTA);
+	while (!fbcIsConfident(&armController)) {
+		fbcRunContinuous(&armController);
+		delay(20);
+	}
+	while (chainGetPos() > CHAIN_INTAKE) {
+		chainSet(80);
+		fbcRunContinuous(&armController); // to guarantee that it will stay in the same place
+		delay(20);
+	}
+	fbcSetGoal(&armController, armPositions[0]);
+	chainSet(0);
+	while (!fbcIsConfident(&armController)) {
+		fbcRunContinuous(&armController);
+		delay(20);
+	}
+	while (true) {
+		if (start)
+			goto MACRO_START;
+		delay(20);
+	}
+}
+
+void liftAutoReturnTaskInit() {
+	autoReturnTask = taskCreate(_returnToIntaking, TASK_DEFAULT_STACK_SIZE, NULL, TASK_PRIORITY_DEFAULT);
+}
+
+void liftAutoReturnSuspend() {
+	if (taskGetState(autoReturnTask) != TASK_SUSPENDED)
+		taskSuspend(autoReturnTask);
+}
+
+void liftAutoReturnResume() {
+	if (taskGetState(autoReturnTask) == TASK_SUSPENDED) {
+		start = true;
+		taskResume(autoReturnTask);
+	}
+}
