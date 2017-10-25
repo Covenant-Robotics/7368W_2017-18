@@ -8,8 +8,8 @@
 // =======
 //
 // >>>>>>> master
- static fbc_t liftController;
- static fbc_pid_t lift_pid;
+// static fbc_t liftController;
+// static fbc_pid_t lift_pid;
 // static TaskHandle liftTask;
 //
 // int lift_positions[3] = {
@@ -207,9 +207,9 @@ void chainTaskSet(){
 //   fbcRunContinuous(&liftController);
 // }
 //
-void liftSetPos(int pos) {
-   fbcSetGoal(&liftController, pos);
-}
+//void liftSetPos(int pos) {
+//   fbcSetGoal(&liftController, pos);
+//}
 // =======
 // }
 //

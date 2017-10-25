@@ -38,4 +38,9 @@ int liftGetPos();
 int liftGetSpeed();
 int chainGetPos();
 
+
+void liftAutoReturnTaskInit();
+void liftAutoReturnSuspend();
+void liftAutoReturnResume();
+
 #endif

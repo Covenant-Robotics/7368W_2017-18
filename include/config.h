@@ -57,4 +57,16 @@
 #define CHAIN_KD 0.01f
 
 
+#define CHAIN_POS_DB_STACK 50
+#define CHAIN_NEG_DB_STACK -10
+#define CHAIN_POS_DB_INTAKE 10
+#define CHAIN_NEG_DB_INTAKE -50
+
+
+#define CHAIN_INTAKE 2700
+#define CHAIN_STACK 500
+
+#define LIFT_DRIVER_POS 1400 //needs testing to find this
+
+
 #endif
