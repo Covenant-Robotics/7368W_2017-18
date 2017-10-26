@@ -7,6 +7,10 @@ void chassisSet(int left, int right);
 
 void chassisInit();
 
+int chassisLeftPos();
+
+int chassisRightPos();
+
 int chassisGetPos();
 
 int trueSpeed(int in);
@@ -14,6 +18,7 @@ int trueSpeed(int in);
 void chassisPIDSet (int goal);
 
 fbc_t* chassisGetPID ();
+void chassisReset();
 
 /**
  * Example Autotune routine

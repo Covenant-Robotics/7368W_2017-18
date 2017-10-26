@@ -1,6 +1,13 @@
 #include "main.h"    // includes API.h and other headers
 
 Encoder leftEncoder, rightEncoder;
+int chassisLeftPos(){
+  return encoderGet(leftEncoder);
+}
+
+int chassisRightPos(){
+  return encoderGet(rightEncoder);
+}
 
 static fbc_t distanceController;
 static fbc_pid_t distancePID;
@@ -13,7 +20,10 @@ static void _chassisPIDMove(int power) {
 //  printf("power %d\n", power);
 
 }
-
+void chassisReset (){
+  encoderReset(leftEncoder);
+  encoderReset(rightEncoder);
+}
 static void _chassisPIDReset () {
   encoderReset(leftEncoder);
   encoderReset(rightEncoder);
@@ -45,11 +55,8 @@ void chassisPidAutotune() {
 
 int chassisGetPos(){
   int leftPos, rightPos;
-  int average;
   leftPos = encoderGet(leftEncoder);
   rightPos = encoderGet(rightEncoder);
-  average = (leftPos + rightPos) / 2;
-//  printf("encoderValue %d\n", average);
   return ((leftPos + rightPos) / 2);
 }
 

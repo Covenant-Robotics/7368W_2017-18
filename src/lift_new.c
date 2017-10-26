@@ -15,10 +15,10 @@ static fbc_pid_t chainPid, armPID;
 
 //}
 
-void liftSet(int power) {
-	blrsMotorSet(ARM_LEFT, power, true);
-  blrsMotorSet(ARM_RIGHT, power, true);
-}
+// void liftSet(int power) {
+// 	blrsMotorSet(ARM_LEFT, power, true);
+//   blrsMotorSet(ARM_RIGHT, power, true);
+// }
 
 static void _pidLiftSet(int power) {
 	liftSet(-power);

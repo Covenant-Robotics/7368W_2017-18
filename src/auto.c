@@ -28,38 +28,87 @@
  */
 
 void autonomous() {
-  if(!isAutonomous()){
-    lcdSetText(uart1, 1, "auton loop");
-  }
-  while(analogRead(CHAIN_POT) < 2600){
-    chainSet(80);
-  }
-  chainSet(0);
-  delay(20);
-  while(analogRead(ARM_POT) > 800){
-    blrsMotorSet(ARM_LEFT, 80, true);
-    blrsMotorSet(ARM_RIGHT, 80, true);
-  }
-  blrsMotorSet(ARM_LEFT, 0, true);
-  blrsMotorSet(ARM_RIGHT, 0, true);
-  delay(20);
-  while(chassisGetPos() < 100){
-    chassisSet(100, 100);
-  }
-  chassisSet(0, 0);
-  delay(20);
-  blrsMotorSet(CLAW, -100, true);
-  delay(500);
-  blrsMotorSet(CLAW, 0, true);
+////////////////////////////////////////////////////////////////////////////////
+  if(analogRead(AUTON_POT) < 1250 && analogRead(AUTON_POT) >= 0){
+    lcdSetText(uart1, 1, "autonLeft");
   }
 
-
-
-
-
-/*  while (chassisGetPos() < 1000) {
-    chassisSet(127, 127);
-    printf("distance %d\n",chassisGetPos());
+////////////////////////////////////////////////////////////////////////////////
+  else if(analogRead(AUTON_POT) >= 1250 && analogRead(AUTON_POT) <= 3000){
+    lcdSetText(uart1, 1, "auton mid");
+    chassisReset();
+    while(analogRead(CHAIN_POT) < 2600){
+      chainSet(80);
+    }
+    chainSet(0);
     delay(20);
+    while(analogRead(ARM_POT) > 700){
+      liftSet(80);
+    }
+    liftSet(0);
+    delay(20);
+    while(chassisRightPos() < 325){
+      chassisSet(25, 25);
+    }
+    chassisSet(0, 0);
+    chassisReset();
+    delay(500);
+    while(analogRead(ARM_POT) < 800){
+      liftSet(-40);
+    }
+    liftSet(0);
+    delay(500);
+    blrsMotorSet(CLAW, -100, true);
+    while(analogRead(ARM_POT) > 700){
+      liftSet(80);
+    }
+    liftSet(0);
+    blrsMotorSet(CLAW, 0, true);
   }
-  chassisSet(0, 0); */
+////////////////////////////////////////////////////////////////////////////////
+  else if(analogRead(AUTON_POT) > 3000 && analogRead(AUTON_POT) <= 4095){
+    lcdSetText(uart1, 1, "auton right");
+    while(analogRead(CHAIN_POT) < 2000){      //out then in on chainbar to undo starting rubber bands
+      chainSet(80);
+    }
+    while(analogRead(CHAIN_POT) > 200){
+      chainSet(-80);
+    }
+    chainSet(0);
+    while(analogRead(ARM_POT) > 1300){         //arm height to clear mogo intake
+      liftSet(80);
+    }
+    liftSet(0);
+    while(analogRead(MOGO_POT) > 800){          // out of mogo intake
+      blrsMotorSet(INTAKE, 127, true);
+    }
+    blrsMotorSet(INTAKE, 0, true);
+    while(chassisGetPos() < 1500){              //drive into mogo
+      chassisSet(127, 127);
+    }
+    chassisSet(0, 0);
+    chassisReset();
+    while(analogRead(MOGO_POT) < 2500){         //intake mogo
+      blrsMotorSet(INTAKE, -80, true);
+    }
+    blrsMotorSet(INTAKE, 0, true);
+    while(chassisGetPos() > -1300){             //return to scoring zone
+      chassisSet(-127, -127);
+    }
+    chassisSet(0, 0);
+    chassisReset();
+    while(analogRead(ARM_POT) < 1400){          //drop the arm back down
+      liftSet(-60);
+    }
+    liftSet(0);
+    blrsMotorSet(CLAW, -100, true);             //stack the preload cone
+    delay(200);
+    blrsMotorSet(CLAW, 0, true);
+  chassisReset();
+  while(chassisLeftPos() < 400);{
+    chassisSet(50, -50);
+}
+chassisSet(0, 0);
+}
+////////////////////////////////////////////////////////////////////////////////
+}

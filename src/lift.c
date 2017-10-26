@@ -67,6 +67,10 @@ void chainPidAutotune(){
   fbcPIDAutotune(&chainController, 3, 15, 3000, 50, uart1, 0, .7, 0, 0.001, 0, 0.01, 3, 5);
 }
 
+void liftSet(int power){
+  blrsMotorSet(ARM_LEFT, power, true);
+  blrsMotorSet(ARM_RIGHT, power, true);
+}
 void coneTaskSet(void * param){
   blrsMotorSet(CLAW, -100, true);
   delay(1000);

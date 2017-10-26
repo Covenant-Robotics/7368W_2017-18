@@ -12,7 +12,8 @@ int arm_state = MANUAL;                         //initializes arm state
 liftAutoReturnTaskInit();                       //initializes autoReturnTask
 
 while (1) {                                       //start of opcontrol while loop
-  lcdPrint(uart1, 1, "chain Pot %d", analogRead(CHAIN_POT) );
+  lcdPrint(uart1, 1, "encoder: %d", chassisLeftPos() );
+  lcdPrint(uart1, 2, "batterY %d", powerLevelMain());
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 int power = clamp(joystickGetAnalog(1, 3)); // vertical axis on left joystick
 int turn  = clamp(joystickGetAnalog(1, 1)); // horizontal axis on right joystick
@@ -32,23 +33,20 @@ else if(arm_state == MANUAL){
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 if(buttonGetState(JOY1_5D)) {         //Button 5D for lowering arm
   arm_state = MANUAL;
-  blrsMotorSet(ARM_LEFT, -45, true);
-  blrsMotorSet(ARM_RIGHT, -45, true);
+  liftSet(-45);
 }
 else if(buttonGetState(JOY1_5U)) {   //Button 5U for raising Arm
   arm_state = MANUAL;
-  blrsMotorSet(ARM_LEFT, 80, true);
-  blrsMotorSet(ARM_RIGHT, 80, true);
+  liftSet(80);
 }
 else if(arm_state == MANUAL){
-  blrsMotorSet(ARM_LEFT, 0, true);  //Arm =0
-  blrsMotorSet(ARM_RIGHT, 0, true);
+  liftSet(0);
 }
 
 if (buttonGetState(JOY1_8U)) {          //start autoReturnTask
 			arm_state = AUTOSTACK;
 		}
-if (arm_state == AUTOSTACK)             //actually does start autoReturnTask
+if (arm_state == AUTOSTACK)             //actually does start autoReturnTask (NOT WORKING)
   liftAutoReturnResume();
 else if (arm_state == MANUAL)           //suspends autoReturnTask if in manual control
   liftAutoReturnSuspend();

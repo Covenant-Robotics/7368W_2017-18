@@ -20,6 +20,7 @@ void liftDecrementPos();
 void liftSnapToPos();
 void liftPID();
 void liftSetPos(int pos);
+void liftSet(int power);
 
 void chainRun();
 void chainSetPos(int goal);

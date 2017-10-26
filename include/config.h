@@ -21,6 +21,7 @@
 #define ARM_POT 1
 #define CHAIN_POT 2
 #define MOGO_POT 3
+#define AUTON_POT 4
 #define DRIVE_SLEW 0.5f
 
 
