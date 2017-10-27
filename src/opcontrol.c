@@ -13,7 +13,7 @@ liftAutoReturnTaskInit();                       //initializes autoReturnTask
 
 while (1) {                                       //start of opcontrol while loop
   lcdPrint(uart1, 1, "encoder: %d", chassisLeftPos() );
-  lcdPrint(uart1, 2, "batterY %d", powerLevelMain());
+  lcdPrint(uart1, 2, "battery %d", powerLevelMain());
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 int power = clamp(joystickGetAnalog(1, 3)); // vertical axis on left joystick
 int turn  = clamp(joystickGetAnalog(1, 1)); // horizontal axis on right joystick
