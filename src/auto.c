@@ -34,31 +34,38 @@ void autonomous() {
     chassisReset();
     while(analogRead(CHAIN_POT) < 1500){      //out then in on chainbar to undo starting rubber bands
       chainSet(127);
+      delay(20);
     }
     while(analogRead(CHAIN_POT) > 200){
       chainSet(-127);
+      delay(20);
     }
     chainSet(0);
     while(analogRead(ARM_POT) > 1300){         //arm height to clear mogo intake
       liftSet(127);
+      delay(20);
     }
     liftSet(0);
     while(analogRead(MOGO_POT) > 800){          // out of mogo intake
       blrsMotorSet(INTAKE, 127, true);
+      delay(20);
     }
     blrsMotorSet(INTAKE, 0, true);
     while(chassisGetPos() < 1250){              //drive into mogo
       chassisSet(80, 80);
+      delay(20);
     }
     chassisSet(0, 0);
     chassisReset();
     delay(200);
     while(analogRead(MOGO_POT) < 2500){         //intake mogo
       blrsMotorSet(INTAKE, -127, true);
+      delay(20);
     }
     blrsMotorSet(INTAKE, 0, true);
     while(analogRead(ARM_POT) < 1400){          //drop the arm back down
       liftSet(-100);
+      delay(20);
     }
     liftSet(0);
     blrsMotorSet(CLAW, -100, true);             //stack the preload cone
@@ -68,9 +75,11 @@ void autonomous() {
     lcdSetText(uart1, 1, "claw unpowered");
     while(chassisGetPos() > -500){             //return to scoring zone
       chassisSet(-100, -100);
+      delay(20);
     }
     while(chassisGetPos() > -1300){             //return to scoring zone
       chassisSet(-60, -20);
+      delay(20);
     }
     chassisSet(0, 0);
     delay(750);
@@ -81,31 +90,37 @@ void autonomous() {
       chassisSet(-40, 40);
       lcdClear(uart1);
       lcdSetText(uart1, 1, "trying to turn");
+      delay(20);
     }
     chassisSet(0, 0);
     chassisReset();
     while(chassisGetPos() < 700){
       chassisSet(127, 127);
+      delay(20);
     }
     chassisSet(0,0);
     chassisReset();
     while(analogRead(ARM_POT) > 1300){         //arm height to clear mogo intake
       liftSet(80);
+      delay(20);
     }
     liftSet(0);
     while(analogRead(MOGO_POT) > 800){          // out of mogo intake
       blrsMotorSet(INTAKE, 127, true);
+      delay(20);
     }
     blrsMotorSet(INTAKE, 0, true);
     chassisSet(-80,-80);
     delay(500);
     while(analogRead(MOGO_POT) < 2500){         //return mogo intake
       blrsMotorSet(INTAKE, -80, true);
+      delay(20);
     }
     blrsMotorSet(INTAKE, 0, true);
     chassisReset();
     while(chassisGetPos() > -300){
       chassisSet(-127, -127);
+      delay(20);
     }
     chassisSet(0,0);
   } //end of autonLeft
@@ -116,28 +131,33 @@ void autonomous() {
     chassisReset();
     while(analogRead(CHAIN_POT) < 2600){
       chainSet(80);
+      delay(20);
     }
     chainSet(0);
     delay(20);
     while(analogRead(ARM_POT) > 700){
       liftSet(80);
+      delay(20);
     }
     liftSet(0);
     delay(20);
     while(chassisRightPos() < 325){
       chassisSet(25, 25);
+      delay(20);
     }
     chassisSet(0, 0);
     chassisReset();
     delay(500);
     while(analogRead(ARM_POT) < 800){
       liftSet(-40);
+      delay(20);
     }
     liftSet(0);
     delay(500);
     blrsMotorSet(CLAW, -100, true);
     while(analogRead(ARM_POT) > 700){
       liftSet(80);
+      delay(20);
     }
     liftSet(0);
     blrsMotorSet(CLAW, 0, true);
@@ -148,31 +168,38 @@ void autonomous() {
     lcdSetText(uart1, 1, "auton right");
     while(analogRead(CHAIN_POT) < 1500){      //out then in on chainbar to undo starting rubber bands
       chainSet(127);
+      delay(20);
     }
     while(analogRead(CHAIN_POT) > 200){
       chainSet(-127);
+      delay(20);
     }
     chainSet(0);
     while(analogRead(ARM_POT) > 1300){         //arm height to clear mogo intake
       liftSet(127);
+      delay(20);
     }
     liftSet(0);
     while(analogRead(MOGO_POT) > 800){          // out of mogo intake
       blrsMotorSet(INTAKE, 127, true);
+      delay(20);
     }
     blrsMotorSet(INTAKE, 0, true);
     while(chassisGetPos() < 1250){              //drive into mogo
       chassisSet(80, 80);
+      delay(20);
     }
     chassisSet(0, 0);
     chassisReset();
     delay(200);
     while(analogRead(MOGO_POT) < 2500){         //intake mogo
       blrsMotorSet(INTAKE, -127, true);
+      delay(20);
     }
     blrsMotorSet(INTAKE, 0, true);
     while(analogRead(ARM_POT) < 1400){          //drop the arm back down
       liftSet(-100);
+      delay(20);
     }
     liftSet(0);
     blrsMotorSet(CLAW, -100, true);             //stack the preload cone
@@ -182,44 +209,52 @@ void autonomous() {
     lcdSetText(uart1, 1, "claw unpowered");
     while(chassisGetPos() > -600){             //return to scoring zone
       chassisSet(-100, -100);
+      delay(20);
     }
     while(chassisGetPos() > -1300){             //return to scoring zone
       chassisSet(-20, -60);
+      delay(20);
     }
     chassisSet(0, 0);
     delay(750);
     chassisReset();
     lcdClear(uart1);
     lcdSetText(uart1, 1, "encoders reset");
-    while(chassisLeftPos() < 325 || chassisRightPos() > -325){
+    while(chassisLeftPos() < 300 || chassisRightPos() > -300){
       chassisSet(40, -40);
       lcdClear(uart1);
       lcdSetText(uart1, 1, "trying to turn");
+      delay(20);
     }
     chassisSet(0, 0);
     chassisReset();
-    while(chassisGetPos() < 700){
+    while(chassisGetPos() < 800){
       chassisSet(127, 127);
+      delay(20);
     }
     chassisSet(0,0);
     chassisReset();
     while(analogRead(ARM_POT) > 1300){         //arm height to clear mogo intake
       liftSet(80);
+      delay(20);
     }
     liftSet(0);
     while(analogRead(MOGO_POT) > 800){          // out of mogo intake
       blrsMotorSet(INTAKE, 127, true);
+      delay(20);
     }
     blrsMotorSet(INTAKE, 0, true);
     chassisSet(-80,-80);
     delay(500);
     while(analogRead(MOGO_POT) < 2500){         //return mogo intake
       blrsMotorSet(INTAKE, -80, true);
+      delay(20);
     }
     blrsMotorSet(INTAKE, 0, true);
     chassisReset();
     while(chassisGetPos() > -300){
       chassisSet(-127, -127);
+      delay(20);
     }
     chassisSet(0,0);
 } //end of auton Right
