@@ -73,8 +73,8 @@ void autonomous() {
     blrsMotorSet(CLAW, 0, true);
     lcdClear(uart1);
     lcdSetText(uart1, 1, "claw unpowered");
-    while(chassisGetPos() > -500){             //return to scoring zone
-      chassisSet(-100, -100);
+    while(chassisGetPos() > -400){             //return to scoring zone
+      chassisSet(-80, -80);
       delay(20);
     }
     while(chassisGetPos() > -1300){             //return to scoring zone
@@ -161,6 +161,13 @@ void autonomous() {
     }
     liftSet(0);
     blrsMotorSet(CLAW, 0, true);
+    chassisReset();
+    while(chassisLeftPos() > -300){
+      chassisSet(-100, 100);
+    }
+    chassisSet(100,100);
+    delay(1250);
+    chassisSet(0, 0);
   } //end of auton Mid
 ////////////////////////////////////////////////////////////////////////////////
   else if(analogRead(AUTON_POT) > 3000 && analogRead(AUTON_POT) <= 4095){
