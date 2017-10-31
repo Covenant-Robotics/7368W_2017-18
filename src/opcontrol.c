@@ -12,11 +12,12 @@ int arm_state = MANUAL;                         //initializes arm state
 liftAutoReturnTaskInit();                       //initializes autoReturnTask
 
 while (1) {                                       //start of opcontrol while loop
-  lcdPrint(uart1, 1, "encoder: %d", chassisLeftPos() );
-  lcdPrint(uart1, 2, "battery %d", powerLevelMain());
+//  lcdPrint(uart1, 1, "encoder: %d", chassisLeftPos() );
+  lcdPrint(uart1, 1, "battery %d", powerLevelMain());
+  lcdPrint(uart1, 1, "backup %d", powerLevelBackup());
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 int power = clamp(joystickGetAnalog(1, 3)); // vertical axis on left joystick
-int turn  = clamp(joystickGetAnalog(1, 1)); // horizontal axis on right joystick
+int turn  = clamp(joystickGetAnalog(1, 4)); // horizontal axis on right joystick
 chassisSet(power + turn, power - turn);
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
  if(buttonGetState(JOY1_6U) && analogRead(CHAIN_POT) < 3000){            //Button 6U for manual out control of Chain bar
