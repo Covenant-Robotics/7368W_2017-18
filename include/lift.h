@@ -29,6 +29,16 @@ void chainTaskInitialize();
 void chainFindDeadband();
 void chainPidAutotune();
 void chainSet(int power);
+void mogoSetPos(int goal);
+
+void mogoOut(void *param);
+void mogoIn(void *param);
+void mogoTasksInit();
+void mogoInResume();
+void mogoOutResume();
+void mogoInSuspend();
+void mogoOutSuspend();
+
 
 TaskHandle coneResetTask();
 

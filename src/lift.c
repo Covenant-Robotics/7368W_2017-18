@@ -21,6 +21,8 @@
 
 static fbc_t chainController;
 static fbc_pid_t chainPid;
+static fbc_t mogoController;
+static fbc_pid_t mogoPID;
 
  // static void _liftSet(int power) {
  //   blrsMotorSet(ARM_LEFT, power, false);
@@ -32,17 +34,61 @@ void chainSet(int power){
 int chainGetPos(){
   return analogRead(CHAIN_POT);
 }
+
+TaskHandle mogoOutTask;
+TaskHandle mogoInTask;
+
+
+void mogoIn(void * param){
+  while(analogRead(MOGO_POT) < 2500){         //intake mogo
+    blrsMotorSet(INTAKE, -127, true);
+    delay(20);
+  }
+}
+void mogoOut(void *param){
+  while(analogRead(MOGO_POT) > 800){          // out of mogo intake
+    blrsMotorSet(INTAKE, 127, true);
+    delay(20);
+  }
+}
+
+void mogoTasksInit(){
+  mogoOutTask = taskCreate(mogoIn, TASK_DEFAULT_STACK_SIZE, NULL, TASK_PRIORITY_DEFAULT);
+  mogoInTask = taskCreate(mogoOut,TASK_DEFAULT_STACK_SIZE,NULL,TASK_PRIORITY_DEFAULT);
+}
+
+void mogoInResume(){
+  taskResume(mogoInTask);
+}
+void mogoOutResume(){
+  taskResume(mogoOutTask);
+}
+void mogoInSuspend(){
+  taskSuspend(mogoInTask);
+}
+void mogoOutSuspend(){
+  taskSuspend(mogoOutTask);
+}
+void mogoSet(int power){
+  blrsMotorSet(INTAKE, power, true);
+}
+int mogoGetPos(){
+  return analogRead(MOGO_POT);
+}
 void liftInit() {
-//   blrsMotorInit(ARM_LEFT, false, LIFT_SLEW, NULL);
-//   blrsMotorInit(ARM_RIGHT, true, LIFT_SLEW, NULL);
    blrsMotorInit(ARM_LEFT, false, NULL, NULL);
    blrsMotorInit(ARM_RIGHT, true, NULL, NULL);
    blrsMotorInit(INTAKE, true, NULL, NULL);
    blrsMotorInit(CHAIN, true, NULL, NULL);
    blrsMotorInit(CLAW, false, NULL, NULL);
+
    fbcInit(&chainController, chainSet, chainGetPos, NULL, NULL, CHAIN_NEG_DEADBAND, CHAIN_POS_DEADBAND, CHAIN_PID_TOL, CHAIN_PID_CONF);
    fbcPIDInitializeData(&chainPid, CHAIN_KP, 0, CHAIN_KD, 0, 0);
    fbcPIDInit(&chainController,&chainPid);
+
+   fbcInit(&mogoController, mogoSet, mogoGetPos, NULL, NULL, MOGO_NEG_DEADBAND, MOGO_POS_DEADBAND, MOGO_PID_TOL, MOGO_PID_CONF);
+   fbcPIDInitializeData(&mogoPID, MOGO_KP, 0, 0, 0, 0);
+   fbcPIDInit(&mogoController, &mogoPID);
 
   // fbcInit(&liftController, liftSet, liftGetPos, NULL, LIFT_NEG_DEADBAND, LIFT_POS_DEADBAND, LIFT_PID_TOL, LIFT_PID_CONF);
   // fbcPIDInitializeData(&lift_pid, LIFT_KP, 0, LIFT_KD, 0, 0);
@@ -52,6 +98,9 @@ void liftInit() {
    fbcSetGoal(&chainController, goal);
  }
 
+void mogoSetPos(int goal){
+  fbcSetGoal(&mogoController, goal);
+}
 void chainRun(){                            //Function to continuously use PID on chain
   fbcRunContinuous(&chainController);
 }

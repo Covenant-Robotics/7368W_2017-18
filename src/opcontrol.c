@@ -14,7 +14,8 @@ liftAutoReturnTaskInit();                       //initializes autoReturnTask
 while (1) {                                       //start of opcontrol while loop
 //  lcdPrint(uart1, 1, "encoder: %d", chassisLeftPos() );
   lcdPrint(uart1, 1, "battery %d", powerLevelMain());
-  lcdPrint(uart1, 1, "backup %d", powerLevelBackup());
+  lcdPrint(uart1, 2, "mogo pot %d", analogRead(MOGO_POT));
+  mogoTasksInit(); //initialize the tasks
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 int power = clamp(joystickGetAnalog(1, 3)); // vertical axis on left joystick
 int turn  = clamp(joystickGetAnalog(1, 4)); // horizontal axis on right joystick
@@ -34,7 +35,7 @@ else if(arm_state == MANUAL){
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 if(buttonGetState(JOY1_5D)) {         //Button 5D for lowering arm
   arm_state = MANUAL;
-  liftSet(-45);
+  liftSet(-100);
 }
 else if(buttonGetState(JOY1_5U)) {   //Button 5U for raising Arm
   arm_state = MANUAL;
@@ -44,27 +45,38 @@ else if(arm_state == MANUAL){
   liftSet(0);
 }
 
-if (buttonGetState(JOY1_8U)) {          //start autoReturnTask
-			arm_state = AUTOSTACK;
-		}
+// if (buttonGetState(JOY1_8U)) {          //start autoReturnTask
+// 			arm_state = AUTOSTACK;
+// 		}
 if (arm_state == AUTOSTACK)             //actually does start autoReturnTask (NOT WORKING)
   liftAutoReturnResume();
 else if (arm_state == MANUAL)           //suspends autoReturnTask if in manual control
   liftAutoReturnSuspend();
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//if (buttonIsNewPress(JOY1_7U) && analogRead(ARM_POT) < 1400){
 if (buttonGetState(JOY1_7U) && analogRead(ARM_POT) < 1400) {      //Button 7U for going out mogo intake
-  blrsMotorSet(INTAKE, 80, true);
+//  blrsMotorSet(INTAKE, 80, true);
+//  mogoSetPos(800);
+  mogoOutResume();
+  mogoInSuspend();
 }
 else if(buttonGetState(JOY1_7D) && analogRead(ARM_POT) < 1400) {  //Button 7D for bringing in mogo intake
-  blrsMotorSet(INTAKE, -80, true);
+//  blrsMotorSet(INTAKE, -80, true);
+//  mogoSetPos(2400);
+    mogoInResume();
+    mogoOutSuspend();
 }
 else {
   blrsMotorSet(INTAKE, 0, true);    //Intake =0
+
 }
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 if(buttonGetState(JOY1_8D)){   //Button 8D for open claw
   blrsMotorSet(CLAW, -100, true);
   }
+else if(buttonGetState(JOY1_8U)){
+  blrsMotorSet(CLAW, 100, true);
+}
 else{
   blrsMotorSet(CLAW, 0, true);     //Claw =0
     }

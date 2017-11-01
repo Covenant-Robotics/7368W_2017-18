@@ -36,9 +36,9 @@ void clawSet(int power) {
 	blrsMotorSet(CLAW, power, true);
 }
 
-void mogoSet(int power) {
-	blrsMotorSet(INTAKE, power, true);
-}
+// void mogoSet(int power) {
+// 	blrsMotorSet(INTAKE, power, true);
+// }
 
 // void liftInit() {
 //    blrsMotorInit(ARM_LEFT, false, NULL, NULL);

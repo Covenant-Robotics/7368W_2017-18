@@ -69,5 +69,12 @@
 
 #define LIFT_DRIVER_POS 1400 //needs testing to find this
 
+//mogo PID Constants
+#define MOGO_POS_DEADBAND 20
+#define MOGO_NEG_DEADBAND -20
+#define MOGO_PID_TOL 10
+#define MOGO_PID_CONF 5
+#define MOGO_KP 0.1f
+
 
 #endif
