@@ -6,11 +6,16 @@ static int clamp(int in) { return (abs(in) > 15) ? in : 0; }   //Deadband used f
 #define AUTOSTACK 1                           //different states for the arm
 #define DRIVER_LOADS 2
 
+#define MOGO_STAY 0
+#define MOGO_OUT 1
+#define MOGO_IN 2
+
 void operatorControl() {                       //start of opcontrol function
 
 int arm_state = MANUAL;                         //initializes arm state
 liftAutoReturnTaskInit();                       //initializes autoReturnTask
 
+int auto_mogo = MOGO_STAY;
 while (1) {                                       //start of opcontrol while loop
 //  lcdPrint(uart1, 1, "encoder: %d", chassisLeftPos() );
   lcdPrint(uart1, 1, "battery %d", powerLevelMain());
@@ -56,19 +61,35 @@ else if (arm_state == MANUAL)           //suspends autoReturnTask if in manual c
 //if (buttonIsNewPress(JOY1_7U) && analogRead(ARM_POT) < 1400){
 if (buttonGetState(JOY1_7U) && analogRead(ARM_POT) < 1400) {      //Button 7U for going out mogo intake
   blrsMotorSet(INTAKE, 80, true);
+	auto_mogo = MOGO_OUT;
 //  mogoSetPos(800);
 //  mogoOutResume();
 //  mogoInSuspend();
 }
 else if(buttonGetState(JOY1_7D) && analogRead(ARM_POT) < 1400) {  //Button 7D for bringing in mogo intake
   blrsMotorSet(INTAKE, -80, true);
+	auto_mogo = MOGO_IN;
 //    mogoSetPos(2400);
 //    mogoInResume();
 //    mogoOutSuspend();
 }
+else if (buttonGetState(JOY1_7U) && buttonGetState(JOY1_7D)) {
+	// Stop the automatic movement if both buttons are pressed
+	// This probably isn't the easiest way to cancel the movement for the driver but since I don't know what your
+	// control scheme is like this seemed like a good placeholder. change this to a dedicated killswitch button if
+	// you want
+	blrsMotorSet(INTAKE, 0, true);
+	auto_mogo = MOGO_STAY;
+}
+else if (auto_mogo == MOGO_OUT && analogRead(MOGO_POT) > 800) {
+	blrsMotorSet(INTAKE, 80, true);
+}
+else if (auto_mogo == MOGO_IN && analogRead(MOGO_POT) < 2500) {
+	blrsMotorSet(INTAKE, -80, true);
+}
 else {
   blrsMotorSet(INTAKE, 0, true);    //Intake =0
-
+	auto_mogo = MOGO_STAY;
 }
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 if(buttonGetState(JOY1_8D)){   //Button 8D for open claw
