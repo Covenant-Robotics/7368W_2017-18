@@ -51,7 +51,7 @@ void autonomous() {
       delay(20);
     }
     blrsMotorSet(INTAKE, 0, true);
-    while(chassisGetPos() < 1250){              //drive into mogo
+    while(chassisGetPos() < 1400){              //drive into mogo
       chassisSet(80, 80);
       delay(20);
     }
@@ -162,12 +162,12 @@ void autonomous() {
     liftSet(0);
     blrsMotorSet(CLAW, 0, true);
     chassisReset();
-    while(chassisLeftPos() > -300){
-      chassisSet(-100, 100);
-    }
-    chassisSet(100,100);
-    delay(1250);
-    chassisSet(0, 0);
+    // while(chassisLeftPos() > -300){
+    //   chassisSet(-100, 100);
+    // }
+    // chassisSet(100,100);
+    // delay(1250);
+    // chassisSet(0, 0);
   } //end of auton Mid
 ////////////////////////////////////////////////////////////////////////////////
   else if(analogRead(AUTON_POT) > 3000 && analogRead(AUTON_POT) <= 4095){
@@ -227,7 +227,7 @@ void autonomous() {
     chassisReset();
     lcdClear(uart1);
     lcdSetText(uart1, 1, "encoders reset");
-    while(chassisLeftPos() < 300 || chassisRightPos() > -300){
+    while(chassisLeftPos() < 275 || chassisRightPos() > -275){
       chassisSet(40, -40);
       lcdClear(uart1);
       lcdSetText(uart1, 1, "trying to turn");
