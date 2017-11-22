@@ -59,22 +59,24 @@ if (arm_state == AUTOSTACK)             //actually does start autoReturnTask (NO
 else if (arm_state == MANUAL)           //suspends autoReturnTask if in manual control
   liftAutoReturnSuspend();
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//if (buttonIsNewPress(JOY1_7U) && analogRead(ARM_POT) < 1400){
-if (buttonGetState(JOY1_7U) && analogRead(ARM_POT) < 1400) {      //Button 7U for going out mogo intake
+
+if (buttonGetState(JOY1_8R) && analogRead(ARM_POT) < 1400) {
   blrsMotorSet(INTAKE, 80, true);
 	auto_mogo = MOGO_OUT;
-//  mogoSetPos(800);
-//  mogoOutResume();
-//  mogoInSuspend();
 }
-else if(buttonGetState(JOY1_7D) && analogRead(ARM_POT) < 1400) {  //Button 7D for bringing in mogo intake
+else if(buttonGetState(JOY1_8L) && analogRead(ARM_POT) < 1400) {
   blrsMotorSet(INTAKE, -80, true);
 	auto_mogo = MOGO_IN;
-//    mogoSetPos(2400);
-//    mogoInResume();
-//    mogoOutSuspend();
 }
-else if (buttonGetState(JOY1_7U) && buttonGetState(JOY1_7D)) {
+else if (buttonGetState(JOY1_7U) && analogRead(ARM_POT) < 1400) {
+	blrsMotorSet(INTAKE, 80, true);
+	auto_mogo = MOGO_STAY;
+}
+else if (buttonGetState(JOY1_7D) && analogRead(ARM_POT) < 1400) {
+		blrsMotorSet(INTAKE, -80, true);
+		auto_mogo = MOGO_STAY;
+}
+else if (buttonGetState(JOY1_8L) && buttonGetState(JOY1_8R)) {
 	// Stop the automatic movement if both buttons are pressed
 	// This probably isn't the easiest way to cancel the movement for the driver but since I don't know what your
 	// control scheme is like this seemed like a good placeholder. change this to a dedicated killswitch button if
@@ -83,13 +85,13 @@ else if (buttonGetState(JOY1_7U) && buttonGetState(JOY1_7D)) {
 	auto_mogo = MOGO_STAY;
 }
 else if (auto_mogo == MOGO_OUT && analogRead(MOGO_POT) > 800) {
-	blrsMotorSet(INTAKE, 80, true);
+	blrsMotorSet(INTAKE, 127, true);
 }
 else if (auto_mogo == MOGO_IN && analogRead(MOGO_POT) < 2500) {
-	blrsMotorSet(INTAKE, -80, true);
+	blrsMotorSet(INTAKE, -127, true);
 }
 else {
-  blrsMotorSet(INTAKE, 0, true);    //Intake =0
+  blrsMotorSet(INTAKE, 0, true);
 	auto_mogo = MOGO_STAY;
 }
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
