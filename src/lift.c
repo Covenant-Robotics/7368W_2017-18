@@ -78,7 +78,7 @@ int mogoGetPos(){
 void liftInit() {
    blrsMotorInit(ARM_LEFT, false, 0, NULL);
    blrsMotorInit(ARM_RIGHT, true, 0, NULL);
-   blrsMotorInit(INTAKE, true, 0, NULL);
+   blrsMotorInit(INTAKE, false, 0, NULL);
    blrsMotorInit(CHAIN, true, 0, NULL);
    blrsMotorInit(CLAW, false, 0, NULL);
 
