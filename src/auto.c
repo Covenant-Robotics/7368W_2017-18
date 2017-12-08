@@ -29,7 +29,7 @@
 
 void autonomous() {
 ////////////////////////////////////////////////////////////////////////////////
-  if(analogRead(AUTON_POT) < 1250 && analogRead(AUTON_POT) >= 0){
+  if(analogRead(AUTON_POT) < 1250 && analogRead(AUTON_POT) >= 0){ //auton Left
     lcdSetText(uart1, 1, "auton Left");
     chassisReset();
     while(analogRead(CHAIN_POT) < 1500){      //out then in on chainbar to undo starting rubber bands
@@ -43,11 +43,13 @@ void autonomous() {
     chainSet(0);
     while(analogRead(ARM_POT) > 1300){         //arm height to clear mogo intake
       liftSet(127);
+      chassisSet(80,80);
       delay(20);
     }
     liftSet(0);
     while(analogRead(MOGO_POT) > 800){          // out of mogo intake
       blrsMotorSet(INTAKE, 127, true);
+      chassisSet(80,80);
       delay(20);
     }
     blrsMotorSet(INTAKE, 0, true);
@@ -86,7 +88,7 @@ void autonomous() {
     chassisReset();
     lcdClear(uart1);
     lcdSetText(uart1, 1, "encoders reset");
-    while(chassisLeftPos() > -325 || chassisRightPos() < 325){
+    while(chassisLeftPos() > -235 || chassisRightPos() < 235){
       chassisSet(-40, 40);
       lcdClear(uart1);
       lcdSetText(uart1, 1, "trying to turn");
@@ -126,7 +128,7 @@ void autonomous() {
   } //end of autonLeft
 
 ////////////////////////////////////////////////////////////////////////////////
-  else if(analogRead(AUTON_POT) >= 1250 && analogRead(AUTON_POT) <= 3000){
+  else if(analogRead(AUTON_POT) >= 1250 && analogRead(AUTON_POT) <= 3000){ //auton Middle
     lcdSetText(uart1, 1, "auton mid");
     chassisReset();
     while(analogRead(CHAIN_POT) < 2600){
@@ -170,7 +172,7 @@ void autonomous() {
     // chassisSet(0, 0);
   } //end of auton Mid
 ////////////////////////////////////////////////////////////////////////////////
-  else if(analogRead(AUTON_POT) > 3000 && analogRead(AUTON_POT) <= 4095){
+  else if(analogRead(AUTON_POT) > 3000 && analogRead(AUTON_POT) <= 4095){ //auton right
 
     lcdSetText(uart1, 1, "auton right");
     while(analogRead(CHAIN_POT) < 1500){      //out then in on chainbar to undo starting rubber bands
@@ -184,11 +186,13 @@ void autonomous() {
     chainSet(0);
     while(analogRead(ARM_POT) > 1300){         //arm height to clear mogo intake
       liftSet(127);
+      chassisSet(80, 80);
       delay(20);
     }
     liftSet(0);
     while(analogRead(MOGO_POT) > 800){          // out of mogo intake
       blrsMotorSet(INTAKE, 127, true);
+      chassisSet(80, 80);
       delay(20);
     }
     blrsMotorSet(INTAKE, 0, true);
@@ -227,7 +231,7 @@ void autonomous() {
     chassisReset();
     lcdClear(uart1);
     lcdSetText(uart1, 1, "encoders reset");
-    while(chassisLeftPos() < 275 || chassisRightPos() > -275){
+    while(chassisLeftPos() < 235 || chassisRightPos() > -235){
       chassisSet(40, -40);
       lcdClear(uart1);
       lcdSetText(uart1, 1, "trying to turn");
