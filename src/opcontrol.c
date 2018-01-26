@@ -87,7 +87,7 @@ else if (buttonGetState(JOY1_8L) && buttonGetState(JOY1_8R)) {
 else if (auto_mogo == MOGO_OUT && analogRead(MOGO_POT) > 800) {
 	blrsMotorSet(INTAKE, 127, true);
 }
-else if (auto_mogo == MOGO_IN && analogRead(MOGO_POT) < 2500) {
+else if (auto_mogo == MOGO_IN && analogRead(MOGO_POT) < 2300) {
 	blrsMotorSet(INTAKE, -127, true);
 }
 else {

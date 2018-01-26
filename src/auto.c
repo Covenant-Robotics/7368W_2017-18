@@ -32,15 +32,15 @@ void autonomous() {
   if(analogRead(AUTON_POT) < 1250 && analogRead(AUTON_POT) >= 0){ //auton Left
     lcdSetText(uart1, 1, "auton Left");
     chassisReset();
-    while(analogRead(CHAIN_POT) < 1500){      //out then in on chainbar to undo starting rubber bands
-      chainSet(127);
-      delay(20);
-    }
-    while(analogRead(CHAIN_POT) > 200){
-      chainSet(-127);
-      delay(20);
-    }
-    chainSet(0);
+    // while(analogRead(CHAIN_POT) < 1500){      //out then in on chainbar to undo starting rubber bands
+    //   chainSet(127);
+    //   delay(20);
+    // }
+    // while(analogRead(CHAIN_POT) > 200){
+    //   chainSet(-127);
+    //   delay(20);
+    // }
+    // chainSet(0);
     while(analogRead(ARM_POT) > 1300){         //arm height to clear mogo intake
       liftSet(127);
       chassisSet(80,80);
@@ -60,7 +60,7 @@ void autonomous() {
     chassisSet(0, 0);
     chassisReset();
     delay(200);
-    while(analogRead(MOGO_POT) < 2500){         //intake mogo
+    while(analogRead(MOGO_POT) < 2300){         //intake mogo
       blrsMotorSet(INTAKE, -127, true);
       delay(20);
     }
@@ -107,14 +107,16 @@ void autonomous() {
       delay(20);
     }
     liftSet(0);
-    while(analogRead(MOGO_POT) > 800){          // out of mogo intake
+    while(analogRead(MOGO_POT) > 1200){          // out of mogo intake
       blrsMotorSet(INTAKE, 127, true);
+      chassisSet(50,50);
       delay(20);
     }
+    chassisSet(0,0);
     blrsMotorSet(INTAKE, 0, true);
     chassisSet(-80,-80);
     delay(500);
-    while(analogRead(MOGO_POT) < 2500){         //return mogo intake
+    while(analogRead(MOGO_POT) < 2300){         //return mogo intake
       blrsMotorSet(INTAKE, -80, true);
       delay(20);
     }
@@ -131,12 +133,15 @@ void autonomous() {
   else if(analogRead(AUTON_POT) >= 1250 && analogRead(AUTON_POT) <= 3000){ //auton Middle
     lcdSetText(uart1, 1, "auton mid");
     chassisReset();
-    while(analogRead(CHAIN_POT) < 2600){
-      chainSet(80);
-      delay(20);
-    }
+    // while(analogRead(CHAIN_POT) < 2600){
+    //   chainSet(80);
+    //   delay(20);
+    // }
+    // chainSet(0);
+    // delay(20);
+    chainSet(100);
+    delay(1000);
     chainSet(0);
-    delay(20);
     while(analogRead(ARM_POT) > 700){
       liftSet(80);
       delay(20);
@@ -175,15 +180,15 @@ void autonomous() {
   else if(analogRead(AUTON_POT) > 3000 && analogRead(AUTON_POT) <= 4095){ //auton right
 
     lcdSetText(uart1, 1, "auton right");
-    while(analogRead(CHAIN_POT) < 1500){      //out then in on chainbar to undo starting rubber bands
-      chainSet(127);
-      delay(20);
-    }
-    while(analogRead(CHAIN_POT) > 200){
-      chainSet(-127);
-      delay(20);
-    }
-    chainSet(0);
+    // while(analogRead(CHAIN_POT) < 1500){      //out then in on chainbar to undo starting rubber bands
+    //   chainSet(127);
+    //   delay(20);
+    // }
+    // while(analogRead(CHAIN_POT) > 200){
+    //   chainSet(-127);
+    //   delay(20);
+    // }
+    // chainSet(0);
     while(analogRead(ARM_POT) > 1300){         //arm height to clear mogo intake
       liftSet(127);
       chassisSet(80, 80);
@@ -203,7 +208,7 @@ void autonomous() {
     chassisSet(0, 0);
     chassisReset();
     delay(200);
-    while(analogRead(MOGO_POT) < 2500){         //intake mogo
+    while(analogRead(MOGO_POT) < 2300){         //intake mogo
       blrsMotorSet(INTAKE, -127, true);
       delay(20);
     }
@@ -252,12 +257,14 @@ void autonomous() {
     liftSet(0);
     while(analogRead(MOGO_POT) > 800){          // out of mogo intake
       blrsMotorSet(INTAKE, 127, true);
+      chassisSet(50,50);
       delay(20);
     }
+    chassisSet(0,0);
     blrsMotorSet(INTAKE, 0, true);
     chassisSet(-80,-80);
     delay(500);
-    while(analogRead(MOGO_POT) < 2500){         //return mogo intake
+    while(analogRead(MOGO_POT) < 2300){         //return mogo intake
       blrsMotorSet(INTAKE, -80, true);
       delay(20);
     }
