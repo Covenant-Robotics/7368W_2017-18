@@ -107,7 +107,7 @@ void autonomous() {
       delay(20);
     }
     liftSet(0);
-    while(analogRead(MOGO_POT) > 1200){          // out of mogo intake
+    while(analogRead(MOGO_POT) > 1300){          // out of mogo intake
       blrsMotorSet(INTAKE, 127, true);
       chassisSet(50,50);
       delay(20);
@@ -148,7 +148,7 @@ void autonomous() {
     }
     liftSet(0);
     delay(20);
-    while(chassisRightPos() < 325){
+    while(chassisRightPos() < 350){
       chassisSet(25, 25);
       delay(20);
     }
@@ -255,7 +255,7 @@ void autonomous() {
       delay(20);
     }
     liftSet(0);
-    while(analogRead(MOGO_POT) > 800){          // out of mogo intake
+    while(analogRead(MOGO_POT) > 1300){          // out of mogo intake
       blrsMotorSet(INTAKE, 127, true);
       chassisSet(50,50);
       delay(20);
