@@ -148,7 +148,7 @@ void autonomous() {
     }
     liftSet(0);
     delay(20);
-    while(chassisRightPos() < 350){
+    while(chassisRightPos() < 375){
       chassisSet(25, 25);
       delay(20);
     }
@@ -169,12 +169,10 @@ void autonomous() {
     liftSet(0);
     blrsMotorSet(CLAW, 0, true);
     chassisReset();
-    // while(chassisLeftPos() > -300){
-    //   chassisSet(-100, 100);
-    // }
-    // chassisSet(100,100);
-    // delay(1250);
-    // chassisSet(0, 0);
+    while(chassisLeftPos() > -375){
+      chassisSet(-100, -100);
+    }
+    chassisSet(0, 0);
   } //end of auton Mid
 ////////////////////////////////////////////////////////////////////////////////
   else if(analogRead(AUTON_POT) > 3000 && analogRead(AUTON_POT) <= 4095){ //auton right
