@@ -76,10 +76,10 @@ int mogoGetPos(){
   return analogRead(MOGO_POT);
 }
 void liftInit() {
-   blrsMotorInit(ARM_LEFT, false, 0, NULL);
-   blrsMotorInit(ARM_RIGHT, true, 0, NULL);
+   blrsMotorInit(ARM_LEFT, false, ARM_SLEW, NULL);
+   blrsMotorInit(ARM_RIGHT, true, ARM_SLEW, NULL);
    blrsMotorInit(INTAKE, false, 0, NULL);
-   blrsMotorInit(CHAIN, true, 0, NULL);
+   blrsMotorInit(CHAIN, true, ARM_SLEW, NULL);
    blrsMotorInit(CLAW, false, 0, NULL);
 
    fbcInit(&chainController, chainSet, chainGetPos, NULL, NULL, CHAIN_NEG_DEADBAND, CHAIN_POS_DEADBAND, CHAIN_PID_TOL, CHAIN_PID_CONF);
