@@ -62,18 +62,22 @@ else if (arm_state == MANUAL)           //suspends autoReturnTask if in manual c
 
 if (buttonGetState(JOY1_8R) && analogRead(ARM_POT) < 1400) {
   blrsMotorSet(INTAKE, 80, true);
+  blrsMotorSet(INTAKE2, -80, true);
 	auto_mogo = MOGO_OUT;
 }
 else if(buttonGetState(JOY1_8L) && analogRead(ARM_POT) < 1400) {
   blrsMotorSet(INTAKE, -80, true);
+  blrsMotorSet(INTAKE2, 80, true);
 	auto_mogo = MOGO_IN;
 }
 else if (buttonGetState(JOY1_7U) && analogRead(ARM_POT) < 1400) {
 	blrsMotorSet(INTAKE, 80, true);
+  blrsMotorSet(INTAKE2, -80, true);
 	auto_mogo = MOGO_STAY;
 }
 else if (buttonGetState(JOY1_7D) && analogRead(ARM_POT) < 1400) {
 		blrsMotorSet(INTAKE, -80, true);
+    blrsMotorSet(INTAKE2, 80, true);
 		auto_mogo = MOGO_STAY;
 }
 else if (buttonGetState(JOY1_8L) && buttonGetState(JOY1_8R)) {
@@ -86,12 +90,15 @@ else if (buttonGetState(JOY1_8L) && buttonGetState(JOY1_8R)) {
 }
 else if (auto_mogo == MOGO_OUT && analogRead(MOGO_POT) > 800) {
 	blrsMotorSet(INTAKE, 127, true);
+	blrsMotorSet(INTAKE2, -127, true);
 }
 else if (auto_mogo == MOGO_IN && analogRead(MOGO_POT) < 2300) {
 	blrsMotorSet(INTAKE, -127, true);
+	blrsMotorSet(INTAKE2, 127, true);
 }
 else {
   blrsMotorSet(INTAKE, 0, true);
+	blrsMotorSet(INTAKE2, 0, true);  
 	auto_mogo = MOGO_STAY;
 }
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

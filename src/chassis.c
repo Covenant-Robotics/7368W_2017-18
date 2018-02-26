@@ -13,10 +13,8 @@ static fbc_t distanceController;
 static fbc_pid_t distancePID;
 
 static void _chassisPIDMove(int power) {
-  blrsMotorSet(MOTOR_LEFT_BACK, power, false);
-  blrsMotorSet(MOTOR_LEFT_FRONT, power, false);
-  blrsMotorSet(MOTOR_RIGHT_BACK, power, false);
-  blrsMotorSet(MOTOR_RIGHT_FRONT, power, false);
+  blrsMotorSet(MOTOR_LEFT, power, false);
+  blrsMotorSet(MOTOR_RIGHT, power, false);
 //  printf("power %d\n", power);
 
 }
@@ -30,20 +28,15 @@ static void _chassisPIDReset () {
 }
 
 void chassisSet(int left, int right) {
-blrsMotorSet(MOTOR_LEFT_BACK, left, false);
-blrsMotorSet(MOTOR_LEFT_FRONT, left, false);
-blrsMotorSet(MOTOR_RIGHT_BACK, right, false);
-blrsMotorSet(MOTOR_RIGHT_FRONT, right, false);
-
+blrsMotorSet(MOTOR_LEFT, left, false);
+blrsMotorSet(MOTOR_RIGHT, right, false);
 }
 
 void chassisInit() {
   leftEncoder = encoderInit(ENCODER_LEFT_TOP, ENCODER_LEFT_BOTTOM, false);
   rightEncoder = encoderInit(ENCODER_RIGHT_TOP, ENCODER_RIGHT_BOTTOM, true);
-  blrsMotorInit(MOTOR_LEFT_FRONT, false, DRIVE_SLEW, NULL);
-  blrsMotorInit(MOTOR_LEFT_BACK, false, DRIVE_SLEW, NULL);
-  blrsMotorInit(MOTOR_RIGHT_FRONT, true, DRIVE_SLEW, NULL);
-  blrsMotorInit(MOTOR_RIGHT_BACK, true, DRIVE_SLEW, NULL);
+  blrsMotorInit(MOTOR_LEFT, false, DRIVE_SLEW, NULL);
+  blrsMotorInit(MOTOR_RIGHT, true, DRIVE_SLEW, NULL);
   fbcInit(&distanceController, _chassisPIDMove, chassisGetPos, _chassisPIDReset, NULL, -DRIVE_PID_DEADBAND, DRIVE_PID_DEADBAND, DRIVE_PID_TOLERANCE, DRIVE_PID_CONFIDENCE);
   fbcPIDInitializeData(&distancePID, DRIVE_KP, DRIVE_KI, DRIVE_KD, -DRIVE_INTEGRAL_CAP, DRIVE_INTEGRAL_CAP);
   fbcPIDInit(&distanceController, &distancePID);

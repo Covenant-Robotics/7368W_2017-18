@@ -3,15 +3,14 @@
 
 #include "main.h"
 
-#define MOTOR_RIGHT_FRONT 8 //on power expander
-#define MOTOR_RIGHT_BACK 9
-#define MOTOR_LEFT_FRONT 2
-#define MOTOR_LEFT_BACK 3 //on power expander
-#define ARM_LEFT 5 //on power expander
-#define ARM_RIGHT 6 //on power expander
-#define CLAW 7
-#define INTAKE 1
-#define CHAIN 4
+#define ARM_LEFT 5 //on power expander //still good
+#define ARM_RIGHT 6 //on power expander //still good
+#define CLAW 3 //now in port three, on power expander, was in port 7
+#define INTAKE 1 //still good
+#define INTAKE2 2 //still good
+#define CHAIN 8 //now in port 8, was in port 4
+#define MOTOR_LEFT 4 //NEW
+#define MOTOR_RIGHT 7 //NEW
 
 #define ENCODER_LEFT_TOP 1
 #define ENCODER_LEFT_BOTTOM 2
