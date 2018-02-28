@@ -47,12 +47,14 @@ void autonomous() {
       delay(20);
     }
     liftSet(0);
-    while(analogRead(MOGO_POT) > 800){          // out of mogo intake
+    while(analogRead(MOGO_POT) > 650){          // out of mogo intake
       blrsMotorSet(INTAKE, 127, true);
+      blrsMotorSet(INTAKE2, 127, true);
       chassisSet(80,80);
       delay(20);
     }
     blrsMotorSet(INTAKE, 0, true);
+    blrsMotorSet(INTAKE2, 0, true);
     while(chassisGetPos() < 1400){              //drive into mogo
       chassisSet(80, 80);
       delay(20);
@@ -60,11 +62,13 @@ void autonomous() {
     chassisSet(0, 0);
     chassisReset();
     delay(200);
-    while(analogRead(MOGO_POT) < 2300){         //intake mogo
+    while(analogRead(MOGO_POT) < 2900){         //intake mogo
       blrsMotorSet(INTAKE, -127, true);
+      blrsMotorSet(INTAKE2, -127, true);
       delay(20);
     }
     blrsMotorSet(INTAKE, 0, true);
+    blrsMotorSet(INTAKE2, 0, true);
     while(analogRead(ARM_POT) < 1400){          //drop the arm back down
       liftSet(-100);
       delay(20);
@@ -73,8 +77,6 @@ void autonomous() {
     blrsMotorSet(CLAW, -100, true);             //stack the preload cone
     delay(300);
     blrsMotorSet(CLAW, 0, true);
-    lcdClear(uart1);
-    lcdSetText(uart1, 1, "claw unpowered");
     while(chassisGetPos() > -400){             //return to scoring zone
       chassisSet(-80, -80);
       delay(20);
@@ -86,12 +88,8 @@ void autonomous() {
     chassisSet(0, 0);
     delay(750);
     chassisReset();
-    lcdClear(uart1);
-    lcdSetText(uart1, 1, "encoders reset");
     while(chassisLeftPos() > -235 || chassisRightPos() < 235){
       chassisSet(-40, 40);
-      lcdClear(uart1);
-      lcdSetText(uart1, 1, "trying to turn");
       delay(20);
     }
     chassisSet(0, 0);
@@ -109,18 +107,22 @@ void autonomous() {
     liftSet(0);
     while(analogRead(MOGO_POT) > 1300){          // out of mogo intake
       blrsMotorSet(INTAKE, 127, true);
+      blrsMotorSet(INTAKE2, 127, true);
       chassisSet(50,50);
       delay(20);
     }
     chassisSet(0,0);
     blrsMotorSet(INTAKE, 0, true);
+    blrsMotorSet(INTAKE2, 0, true);
     chassisSet(-80,-80);
     delay(500);
-    while(analogRead(MOGO_POT) < 2300){         //return mogo intake
+    while(analogRead(MOGO_POT) < 2900){         //return mogo intake
       blrsMotorSet(INTAKE, -80, true);
+      blrsMotorSet(INTAKE2, -80, true);
       delay(20);
     }
     blrsMotorSet(INTAKE, 0, true);
+    blrsMotorSet(INTAKE2, 0, true);
     chassisReset();
     while(chassisGetPos() > -300){
       chassisSet(-127, -127);
@@ -193,12 +195,14 @@ void autonomous() {
       delay(20);
     }
     liftSet(0);
-    while(analogRead(MOGO_POT) > 800){          // out of mogo intake
+    while(analogRead(MOGO_POT) > 650){          // out of mogo intake
       blrsMotorSet(INTAKE, 127, true);
+      blrsMotorSet(INTAKE2, 127, true);
       chassisSet(80, 80);
       delay(20);
     }
     blrsMotorSet(INTAKE, 0, true);
+    blrsMotorSet(INTAKE2, 0, true);
     while(chassisGetPos() < 1250){              //drive into mogo
       chassisSet(80, 80);
       delay(20);
@@ -206,11 +210,13 @@ void autonomous() {
     chassisSet(0, 0);
     chassisReset();
     delay(200);
-    while(analogRead(MOGO_POT) < 2300){         //intake mogo
+    while(analogRead(MOGO_POT) < 2900){         //intake mogo
       blrsMotorSet(INTAKE, -127, true);
+      blrsMotorSet(INTAKE2, -127, true);
       delay(20);
     }
     blrsMotorSet(INTAKE, 0, true);
+    blrsMotorSet(INTAKE2, 0, true);
     while(analogRead(ARM_POT) < 1400){          //drop the arm back down
       liftSet(-100);
       delay(20);
@@ -219,8 +225,6 @@ void autonomous() {
     blrsMotorSet(CLAW, -100, true);             //stack the preload cone
     delay(300);
     blrsMotorSet(CLAW, 0, true);
-    lcdClear(uart1);
-    lcdSetText(uart1, 1, "claw unpowered");
     while(chassisGetPos() > -600){             //return to scoring zone
       chassisSet(-100, -100);
       delay(20);
@@ -232,12 +236,8 @@ void autonomous() {
     chassisSet(0, 0);
     delay(750);
     chassisReset();
-    lcdClear(uart1);
-    lcdSetText(uart1, 1, "encoders reset");
     while(chassisLeftPos() < 235 || chassisRightPos() > -235){
       chassisSet(40, -40);
-      lcdClear(uart1);
-      lcdSetText(uart1, 1, "trying to turn");
       delay(20);
     }
     chassisSet(0, 0);
@@ -255,18 +255,22 @@ void autonomous() {
     liftSet(0);
     while(analogRead(MOGO_POT) > 1300){          // out of mogo intake
       blrsMotorSet(INTAKE, 127, true);
+      blrsMotorSet(INTAKE2, 127, true);
       chassisSet(50,50);
       delay(20);
     }
     chassisSet(0,0);
     blrsMotorSet(INTAKE, 0, true);
+    blrsMotorSet(INTAKE2, 0, true);
     chassisSet(-80,-80);
     delay(500);
     while(analogRead(MOGO_POT) < 2300){         //return mogo intake
       blrsMotorSet(INTAKE, -80, true);
+      blrsMotorSet(INTAKE2, -80, true);
       delay(20);
     }
     blrsMotorSet(INTAKE, 0, true);
+    blrsMotorSet(INTAKE2, 0, true);     
     chassisReset();
     while(chassisGetPos() > -300){
       chassisSet(-127, -127);
