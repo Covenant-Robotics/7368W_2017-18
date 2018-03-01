@@ -22,7 +22,7 @@
 #define MOGO_POT 3
 #define AUTON_POT 4
 #define DRIVE_SLEW 0.5f
-#define ARM_SLEW 3f
+#define ARM_SLEW 0.5f
 
 
 //Drive constants

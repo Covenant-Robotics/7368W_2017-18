@@ -118,8 +118,8 @@ void chainPidAutotune(){
 }
 
 void liftSet(int power){
-  blrsMotorSet(ARM_LEFT, power, true);
-  blrsMotorSet(ARM_RIGHT, power, true);
+  blrsMotorSet(ARM_LEFT, power, false);
+  blrsMotorSet(ARM_RIGHT, power, false);
 }
 void coneTaskSet(void * param){
   blrsMotorSet(CLAW, -100, true);

@@ -29,14 +29,14 @@ chassisSet(power + turn, power - turn);
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
  if(buttonGetState(JOY1_6U) && analogRead(CHAIN_POT) < 3000){            //Button 6U for manual out control of Chain bar
   arm_state = MANUAL;
-  blrsMotorSet(CHAIN, 80, true);
+  blrsMotorSet(CHAIN, 80, false);
 }
 else if(buttonGetState(JOY1_6D) && analogRead(CHAIN_POT) > 12){       //Button 6D for manual in control of Chain bar
   arm_state = MANUAL;
-  blrsMotorSet(CHAIN, -60, true);
+  blrsMotorSet(CHAIN, -60, false);
 }
 else if(arm_state == MANUAL){
-  blrsMotorSet(CHAIN, 0, true);
+  blrsMotorSet(CHAIN, 0, false);
 }
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 if(buttonGetState(JOY1_5D)) {         //Button 5D for lowering arm
