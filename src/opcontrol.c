@@ -103,7 +103,7 @@ else {
 }
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 if(buttonGetState(JOY1_8D)){   //Button 8D for open claw
-  blrsMotorSet(CLAW, -100, true);
+  blrsMotorSet(CLAW, -75, true);
   }
 else if(buttonGetState(JOY1_8U)){ //Button 8U for close claw
   blrsMotorSet(CLAW, 100, true);
