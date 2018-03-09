@@ -41,7 +41,7 @@ void autonomous() {
     //   delay(20);
     // }
     // chainSet(0);
-    while(analogRead(ARM_POT) > 1300){         //arm height to clear mogo intake
+    while(analogRead(ARM_POT) > 1550){         //arm height to clear mogo intake
       liftSet(127);
   //    chassisSet(80,80);
       delay(20);
@@ -70,7 +70,8 @@ void autonomous() {
     blrsMotorSet(INTAKE, 0, true);
     blrsMotorSet(INTAKE2, 0, true);
     while(analogRead(ARM_POT) < 1400){          //drop the arm back down
-      liftSet(-100);
+      liftSet(-127);
+      chassisSet(-127,-127);
       delay(20);
     }
     liftSet(0);
@@ -78,20 +79,22 @@ void autonomous() {
     delay(300);
     blrsMotorSet(CLAW, 0, true);
     while(chassisGetPos() > -500){             //return to scoring zone
-      chassisSet(-80, -80);
+      chassisSet(-127, -127);
       delay(20);
     }
-    while(chassisGetPos() > -1700){             //return to scoring zone
-      chassisSet(-60, -20);
+    while(chassisGetPos() > -1500){             //return to scoring zone
+      chassisSet(-80, -40);
       delay(20);
     }
     chassisSet(0, 0);
     delay(750);
     chassisReset();
-    while(chassisLeftPos() > -215 || chassisRightPos() < 215){
-      chassisSet(-70, 70);
+    while(chassisLeftPos() > -140 || chassisRightPos() < 140){
+      chassisSet(-80, 80);
       delay(20);
     }
+    chassisSet(100, -100);
+    delay(200);
     chassisReset();
     chassisSet(40, 40);
     delay(200);
@@ -123,7 +126,7 @@ void autonomous() {
     delay(300);
     chassisSet(-100,-100);
     blrsMotorSet(INTAKE, 80, true);
-    blrsMotorSet(INTAKE2, 80, true);    
+    blrsMotorSet(INTAKE2, 80, true);
     delay(300);
     while(analogRead(MOGO_POT) < 2700){         //return mogo intake
       blrsMotorSet(INTAKE, -80, true);
@@ -199,7 +202,7 @@ void autonomous() {
     //   delay(20);
     // }
     // chainSet(0);
-    while(analogRead(ARM_POT) > 1300){         //arm height to clear mogo intake
+    while(analogRead(ARM_POT) > 1550){         //arm height to clear mogo intake
       liftSet(127);
 //      chassisSet(80, 80);
       delay(20);
@@ -213,14 +216,14 @@ void autonomous() {
     }
     blrsMotorSet(INTAKE, 0, true);
     blrsMotorSet(INTAKE2, 0, true);
-    while(chassisGetPos() < 1250){              //drive into mogo
+    while(chassisGetPos() < 1200){              //drive into mogo
       chassisSet(80, 80);
       delay(20);
     }
     chassisSet(0, 0);
     chassisReset();
     delay(200);
-    while(analogRead(MOGO_POT) < 2900){         //intake mogo
+    while(analogRead(MOGO_POT) < 2700){         //intake mogo
       blrsMotorSet(INTAKE, -127, true);
       blrsMotorSet(INTAKE2, -127, true);
       delay(20);
@@ -228,31 +231,35 @@ void autonomous() {
     blrsMotorSet(INTAKE, 0, true);
     blrsMotorSet(INTAKE2, 0, true);
     while(analogRead(ARM_POT) < 1400){          //drop the arm back down
-      liftSet(-100);
+      liftSet(-127);
+      chassisSet(-127,-127);
       delay(20);
     }
     liftSet(0);
     blrsMotorSet(CLAW, -100, true);             //stack the preload cone
     delay(300);
     blrsMotorSet(CLAW, 0, true);
-    while(chassisGetPos() > -600){             //return to scoring zone
-      chassisSet(-100, -100);
+    while(chassisGetPos() > -500){             //return to scoring zone
+      chassisSet(-127, -127);
       delay(20);
     }
-    while(chassisGetPos() > -1300){             //return to scoring zone
-      chassisSet(-20, -60);
+    while(chassisGetPos() > -1600){             //return to scoring zone
+      chassisSet(-30, -80);
       delay(20);
     }
     chassisSet(0, 0);
     delay(750);
     chassisReset();
-    while(chassisLeftPos() < 215 || chassisRightPos() > -215){
+    while(chassisLeftPos() < 140  || chassisRightPos() > -140){
       chassisSet(80, -80);
       delay(20);
     }
-    chassisSet(-10, 10);
+    chassisSet(-100, 100);
+    delay(20);
     chassisReset();
-    while(chassisGetPos() < 800){
+    chassisSet(40,40);
+    delay(200);
+    while(chassisGetPos() < 500){
       chassisSet(127, 127);
       delay(20);
     }
@@ -274,9 +281,18 @@ void autonomous() {
     blrsMotorSet(INTAKE2, 0, true);
     chassisSet(-80,-80);
     delay(500);
-    while(analogRead(MOGO_POT) < 2300){         //return mogo intake
+    chassisSet(100,100);
+    blrsMotorSet(INTAKE, -40, true);
+    blrsMotorSet(INTAKE2, -40, true);
+    delay(300);
+    chassisSet(-100,-100);
+    blrsMotorSet(INTAKE, 80, true);
+    blrsMotorSet(INTAKE2, 80, true);
+    delay(300);
+    while(analogRead(MOGO_POT) < 2700){         //return mogo intake
       blrsMotorSet(INTAKE, -80, true);
       blrsMotorSet(INTAKE2, -80, true);
+      chassisSet(20, 20);
       delay(20);
     }
     blrsMotorSet(INTAKE, 0, true);
