@@ -104,11 +104,13 @@ void autonomous() {
     }
     chassisSet(0,0);
     chassisReset();
+    blrsMotorSet(CLAW, -100, true);
     while(analogRead(ARM_POT) > 1300){         //arm height to clear mogo intake
       liftSet(80);
       delay(20);
     }
     liftSet(0);
+    blrsMotorSet(CLAW, 0, true);
     while(analogRead(MOGO_POT) > 1300){          // out of mogo intake
       blrsMotorSet(INTAKE, 127, true);
       blrsMotorSet(INTAKE2, 127, true);
@@ -265,11 +267,13 @@ void autonomous() {
     }
     chassisSet(0,0);
     chassisReset();
+    blrsMotorSet(CLAW, -100, true);
     while(analogRead(ARM_POT) > 1300){         //arm height to clear mogo intake
       liftSet(80);
       delay(20);
     }
     liftSet(0);
+    blrsMotorSet(CLAW, 0, true);
     while(analogRead(MOGO_POT) > 1300){          // out of mogo intake
       blrsMotorSet(INTAKE, 127, true);
       blrsMotorSet(INTAKE2, 127, true);
