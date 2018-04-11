@@ -16,7 +16,7 @@ int arm_state = MANUAL;                         //initializes arm state
 liftAutoReturnTaskInit();                       //initializes autoReturnTask
 
 int auto_mogo = MOGO_STAY;
-
+bool clawOpen = false;
 while (1) {                                       //start of opcontrol while loop
 //  lcdPrint(uart1, 1, "encoder: %d", chassisLeftPos() );
   lcdPrint(uart1, 1, "battery %d", powerLevelMain());
@@ -102,15 +102,27 @@ else {
 	auto_mogo = MOGO_STAY;
 }
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////new code block, Probably wont work first attempt!
 if(buttonGetState(JOY1_8D)){   //Button 8D for open claw
-  blrsMotorSet(CLAW, -75, true);
+  clawOpen = true; //says claw should be opened
   }
 else if(buttonGetState(JOY1_8U)){ //Button 8U for close claw
+  clawOpen = false; //says claw should be closed
   blrsMotorSet(CLAW, 100, true);
 }
-else{
-  blrsMotorSet(CLAW, 0, true);     //Claw =0
-    }
+if(clawOpen == true && CLAW_POT > 3470){ //if it should be open and it is still closed
+  blrsMotorSet(CLAW, -75, true);
+}
+////////////////////////////////////////////////////
+// if(buttonGetState(JOY1_8D)){   //Button 8D for open claw
+//   blrsMotorSet(CLAW, -75, true);
+//   }
+// else if(buttonGetState(JOY1_8U)){ //Button 8U for close claw
+//   blrsMotorSet(CLAW, 100, true);
+// }
+// else{
+//   blrsMotorSet(CLAW, 0, true);     //Claw =0
+//     }
 
       delay(20);
     }
