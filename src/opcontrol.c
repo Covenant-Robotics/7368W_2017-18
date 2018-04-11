@@ -20,7 +20,7 @@ int auto_mogo = MOGO_STAY;
 while (1) {                                       //start of opcontrol while loop
 //  lcdPrint(uart1, 1, "encoder: %d", chassisLeftPos() );
   lcdPrint(uart1, 1, "battery %d", powerLevelMain());
-  lcdPrint(uart1, 2, "mogo pot %d", analogRead(MOGO_POT));
+  lcdPrint(uart1, 2, "bar pot %d", analogRead(BAR_POT));
 //   mogoTasksInit(); //initialize the tasks
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 int power = clamp(joystickGetAnalog(1, 3)); // vertical axis on left joystick

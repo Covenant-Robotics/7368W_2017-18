@@ -18,9 +18,12 @@
 #define ENCODER_RIGHT_BOTTOM 4
 
 #define ARM_POT 1
-#define CHAIN_POT 2
+#define BAR_POT 7 //out=3680, in=1400
+#define CLAW_POT 5 //closed=3685, open=3470
 #define MOGO_POT 3
 #define AUTON_POT 4
+#define CHAIN_POT 2 //unused
+
 #define DRIVE_SLEW 0.5f
 #define ARM_SLEW 0.5f
 
