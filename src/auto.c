@@ -29,7 +29,7 @@
 
 void autonomous() {
 ////////////////////////////////////////////////////////////////////////////////
-  if(analogRead(AUTON_POT) < 1250 && analogRead(AUTON_POT) >= 0){ //auton Left
+  if(analogRead(AUTON_POT) < 500 && analogRead(AUTON_POT) >= 0){ //auton Left
     lcdSetText(uart1, 1, "auton Left");
     chassisReset();
     // while(analogRead(CHAIN_POT) < 1500){      //out then in on chainbar to undo starting rubber bands
@@ -145,9 +145,12 @@ void autonomous() {
     }
     chassisSet(0,0);
   } //end of autonLeft
-
 ////////////////////////////////////////////////////////////////////////////////
-  else if(analogRead(AUTON_POT) >= 1250 && analogRead(AUTON_POT) <= 3000){ //auton Middle
+else if(analogRead(AUTON_POT) > 500 && analogRead(AUTON_POT) < 1400){ //auton left 5-point
+
+}
+////////////////////////////////////////////////////////////////////////////////
+  else if(analogRead(AUTON_POT) >= 1400 && analogRead(AUTON_POT) <= 2300){ //auton Middle
     lcdSetText(uart1, 1, "auton mid");
     chassisReset();
     // while(analogRead(CHAIN_POT) < 2600){
@@ -192,7 +195,11 @@ void autonomous() {
     chassisSet(0, 0);
   } //end of auton Mid
 ////////////////////////////////////////////////////////////////////////////////
-  else if(analogRead(AUTON_POT) > 3000 && analogRead(AUTON_POT) <= 4095){ //auton right
+else if(analogRead(AUTON_POT) > 2300 && analogRead(AUTON_POT) < 3700){ //auton right 5 point
+
+}
+////////////////////////////////////////////////////////////////////////////////
+  else if(analogRead(AUTON_POT) > 3700 && analogRead(AUTON_POT) <= 4095){ //auton right
 
     lcdSetText(uart1, 1, "auton right");
     // while(analogRead(CHAIN_POT) < 1500){      //out then in on chainbar to undo starting rubber bands
