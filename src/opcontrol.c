@@ -26,7 +26,7 @@ int claw_state = CLAW_STAY;
 while (1) {                                       //start of opcontrol while loop
 //  lcdPrint(uart1, 1, "encoder: %d", chassisLeftPos() );
   lcdPrint(uart1, 1, "battery %d", powerLevelMain());
-  lcdPrint(uart1, 2, "bar pot %d", analogRead(BAR_POT));
+  lcdPrint(uart1, 2, "bar pot %d", analogRead(AUTON_POT));
 //   mogoTasksInit(); //initialize the tasks
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// basic setup for drive control
 int power = clamp(joystickGetAnalog(1, 3)); // vertical axis on left joystick
