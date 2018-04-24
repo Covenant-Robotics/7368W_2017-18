@@ -147,9 +147,9 @@ void autonomous() {
   } //end of autonLeft
 ////////////////////////////////////////////////////////////////////////////////
 else if(analogRead(AUTON_POT) > 500 && analogRead(AUTON_POT) < 1400){ //auton left 5-point
+  lcdSetText(uart1, 1, "left 5Pt");
   while(analogRead(ARM_POT) > 1550){         //arm height to clear mogo intake
     liftSet(127);
-//    chassisSet(80,80);
     delay(20);
   }
   liftSet(0);
@@ -161,7 +161,7 @@ else if(analogRead(AUTON_POT) > 500 && analogRead(AUTON_POT) < 1400){ //auton le
   }
   blrsMotorSet(INTAKE, 0, true);
   blrsMotorSet(INTAKE2, 0, true);
-  while(chassisGetPos() < 1200){              //drive into mogo
+  while(chassisGetPos() < 825){              //drive into mogo
     chassisSet(80, 80);
     delay(20);
   }
@@ -177,25 +177,74 @@ else if(analogRead(AUTON_POT) > 500 && analogRead(AUTON_POT) < 1400){ //auton le
   blrsMotorSet(INTAKE2, 0, true);
   while(analogRead(ARM_POT) < 1400){          //drop the arm back down
     liftSet(-127);
-  //  chassisSet(-127,-127);
     delay(20);
   }
   liftSet(0);
   blrsMotorSet(CLAW, -100, true);             //stack the preload cone
-  delay(300);
-  blrsMotorSet(CLAW, 0, true);
-while(analogRead(BAR_POT) > 3680){            //grab second cone
+  liftSet(100);
+  delay(600);
+while(analogRead(BAR_POT) < 3400){            //grab second cone
   blrsMotorSet(CHAIN, 100, true);
   blrsMotorSet(CLAW, -100, true);
+  liftSet(0);
 }
+liftSet(-80);
 blrsMotorSet(CHAIN, 0, true);
-blrsMotorSet(CLAW, -100, true);
 delay(300);
-while(analogRead(ARM_POT) > 1550){
+chassisSet(50,50);
+delay(500);
+chassisSet(0,0);
+blrsMotorSet(CLAW, 60, true);
+delay(200);
+while(analogRead(ARM_POT) > 1350){
   liftSet(100);
-  blrsMotorSet(CHAIN, -100, true);
+  blrsMotorSet(CHAIN, 0, true);
   blrsMotorSet(CLAW, 0, true);
 }
+while(analogRead(BAR_POT) > 1700){
+  blrsMotorSet(CHAIN, -100, true);
+  liftSet(-10);
+}
+chassisReset();
+liftSet(-100);
+chassisSet(-127, -127);
+delay(300);
+liftSet(0);
+while (chassisGetPos() > -650){
+  chassisSet(-100, -100);
+}
+chassisSet(0,0);
+chassisReset();
+while(chassisLeftPos() > -270 || chassisRightPos() < 270){
+  chassisSet(-80, 80);
+  delay(20);
+}
+chassisSet(0, 0);
+blrsMotorSet(CLAW, -100, true);
+while(analogRead(ARM_POT) > 1300){         //arm height to clear mogo intake
+  liftSet(80);
+  delay(20);
+}
+liftSet(0);
+while(analogRead(MOGO_POT) > 650){          // out of mogo intake
+  blrsMotorSet(INTAKE, 127, true);
+  blrsMotorSet(INTAKE2, 127, true);
+  blrsMotorSet(CLAW, 0, true);
+  delay(20);
+}
+blrsMotorSet(INTAKE, 0, true);
+blrsMotorSet(INTAKE2, 0, true);
+chassisSet(-80,-80);
+delay(500);
+while(analogRead(MOGO_POT) < 2700){         //return mogo intake
+  blrsMotorSet(INTAKE, -80, true);
+  blrsMotorSet(INTAKE2, -80, true);
+  chassisSet(0, 0);
+  delay(20);
+}
+blrsMotorSet(INTAKE, 0, true);
+blrsMotorSet(INTAKE2, 0, true);
+chassisReset();
 }
 ////////////////////////////////////////////////////////////////////////////////
   else if(analogRead(AUTON_POT) >= 1400 && analogRead(AUTON_POT) <= 2300){ //auton Middle
@@ -244,7 +293,104 @@ while(analogRead(ARM_POT) > 1550){
   } //end of auton Mid
 ////////////////////////////////////////////////////////////////////////////////
 else if(analogRead(AUTON_POT) > 2300 && analogRead(AUTON_POT) < 3700){ //auton right 5 point
-
+  lcdSetText(uart1, 1, "right 5Pt");
+  while(analogRead(ARM_POT) > 1550){         //arm height to clear mogo intake
+    liftSet(127);
+    delay(20);
+  }
+  liftSet(0);
+  while(analogRead(MOGO_POT) > 650){          // out of mogo intake
+    blrsMotorSet(INTAKE, 127, true);
+    blrsMotorSet(INTAKE2, 127, true);
+    chassisSet(60,60);
+    delay(20);
+  }
+  blrsMotorSet(INTAKE, 0, true);
+  blrsMotorSet(INTAKE2, 0, true);
+  while(chassisGetPos() < 825){              //drive into mogo
+    chassisSet(80, 80);
+    delay(20);
+  }
+  chassisSet(0, 0);
+  chassisReset();
+  delay(200);
+  while(analogRead(MOGO_POT) < 2700){         //intake mogo
+    blrsMotorSet(INTAKE, -127, true);
+    blrsMotorSet(INTAKE2, -127, true);
+    delay(20);
+  }
+  blrsMotorSet(INTAKE, 0, true);
+  blrsMotorSet(INTAKE2, 0, true);
+  while(analogRead(ARM_POT) < 1400){          //drop the arm back down
+    liftSet(-127);
+    delay(20);
+  }
+  liftSet(0);
+  blrsMotorSet(CLAW, -100, true);             //stack the preload cone
+  liftSet(100);
+  delay(600);
+while(analogRead(BAR_POT) < 3400){            //grab second cone
+  blrsMotorSet(CHAIN, 100, true);
+  blrsMotorSet(CLAW, -100, true);
+  liftSet(0);
+}
+liftSet(-80);
+blrsMotorSet(CHAIN, 0, true);
+delay(300);
+chassisSet(50,50);
+delay(500);
+chassisSet(0,0);
+blrsMotorSet(CLAW, 60, true);
+delay(200);
+while(analogRead(ARM_POT) > 1350){
+  liftSet(100);
+  blrsMotorSet(CHAIN, 0, true);
+  blrsMotorSet(CLAW, 0, true);
+}
+while(analogRead(BAR_POT) > 1700){
+  blrsMotorSet(CHAIN, -100, true);
+  liftSet(-10);
+}
+chassisReset();
+liftSet(-100);
+chassisSet(-127, -127);
+delay(300);
+liftSet(0);
+while (chassisGetPos() > -650){
+  chassisSet(-100, -100);
+}
+chassisSet(0,0);
+chassisReset();
+while(chassisLeftPos() > -270 || chassisRightPos() < 270){
+  chassisSet(-80, 80);
+  delay(20);
+}
+chassisSet(0, 0);
+blrsMotorSet(CLAW, -100, true);
+while(analogRead(ARM_POT) > 1300){         //arm height to clear mogo intake
+  liftSet(80);
+  delay(20);
+}
+liftSet(0);
+while(analogRead(MOGO_POT) > 650){          // out of mogo intake
+  blrsMotorSet(INTAKE, 127, true);
+  blrsMotorSet(INTAKE2, 127, true);
+  blrsMotorSet(CLAW, 0, true);
+  delay(20);
+}
+blrsMotorSet(INTAKE, 0, true);
+blrsMotorSet(INTAKE2, 0, true);
+chassisSet(-80,-80);
+delay(500);
+while(analogRead(MOGO_POT) < 2700){         //return mogo intake
+  blrsMotorSet(INTAKE, -80, true);
+  blrsMotorSet(INTAKE2, -80, true);
+  chassisSet(0, 0);
+  delay(20);
+}
+blrsMotorSet(INTAKE, 0, true);
+blrsMotorSet(INTAKE2, 0, true);
+chassisReset();
 }
 ////////////////////////////////////////////////////////////////////////////////
   else if(analogRead(AUTON_POT) > 3700 && analogRead(AUTON_POT) <= 4095){ //auton right
